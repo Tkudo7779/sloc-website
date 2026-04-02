@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ロコモチェック | SLOC</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1a6b4a;--green-light:#2d8a62;--green-pale:#e8f5ef;
+  --green-mid:#a8d5bc;--cream:#faf8f4;--charcoal:#1e2420;
+  --mid:#4a5e54;--accent:#d47c3a;--blue:#1a4a7a;--blue-pale:#e6f1fb;
+  --purple:#534ab7;--purple-pale:#eeedfe;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--charcoal);}
+header{background:var(--charcoal);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:white;}
+.logo span{font-size:0.7rem;color:var(--green-mid);letter-spacing:0.1em;text-transform:uppercase;margin-left:0.5rem;}
+.back{font-size:0.78rem;color:var(--green-mid);text-decoration:none;}
+.hero{background:var(--green);padding:3rem 2rem;text-align:center;}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.4rem,4vw,2rem);color:white;margin-bottom:0.5rem;}
+.hero p{font-size:0.88rem;color:rgba(255,255,255,0.75);line-height:1.8;max-width:520px;margin:0 auto;}
+.container{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem;}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+.cat-card{background:white;border:1.5px solid rgba(26,107,74,0.15);border-radius:10px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.cat-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transition:transform 0.3s;}
+.cat-card.g::before{background:var(--green);}
+.cat-card.b::before{background:var(--blue);}
+.cat-card.p::before{background:var(--purple);}
+.cat-card:hover::before{transform:scaleX(1);}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.08);}
+.cat-icon{font-size:2rem;margin-bottom:0.8rem;}
+.cat-tgt{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
+.g .cat-tgt{color:var(--green);} .b .cat-tgt{color:var(--blue);} .p .cat-tgt{color:var(--purple);}
+.cat-title{font-family:'Noto Serif JP',serif;font-size:0.95rem;font-weight:700;color:var(--charcoal);margin-bottom:0.5rem;line-height:1.4;}
+.cat-desc{font-size:0.75rem;color:var(--mid);line-height:1.6;}
+.hidden{display:none;}
+.tc-test{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0.9rem;background:white;border:1.5px solid #e8d0b0;border-radius:6px;margin-bottom:0.5rem;}
+.tc-test.done{border-color:var(--green-mid);background:var(--green-pale);}
+.tc-test-name{font-size:0.84rem;color:var(--charcoal);font-weight:500;}
+.tc-btn{padding:0.4rem 0.9rem;border-radius:4px;border:1.5px solid;font-family:inherit;font-size:0.8rem;font-weight:500;cursor:pointer;transition:all 0.15s;}
+.tc-ok{background:white;color:var(--green);border-color:var(--green-mid);}
+.tc-ok.active{background:var(--green);color:white;border-color:var(--green);}
+.tc-ng{background:white;color:var(--orange);border-color:#f0c090;}
+.tc-ng.active{background:var(--orange);color:white;border-color:var(--orange);}
+.sec-back{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--mid);cursor:pointer;margin-bottom:1.5rem;width:fit-content;}
+.sec-back:hover{color:var(--green);}
+.card{background:white;border-radius:8px;border:1px solid rgba(26,107,74,0.1);padding:1.5rem;margin-bottom:1.2rem;}
+.clabel{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;}
+.lg{color:var(--green);} .lb{color:var(--blue);} .lp{color:var(--purple);}
+.card h2{font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--charcoal);margin-bottom:1rem;line-height:1.5;}
+select{width:100%;padding:0.65rem 0.9rem;border:1.5px solid #ddd;border-radius:4px;font-family:'Noto Sans JP',sans-serif;font-size:0.88rem;color:var(--charcoal);background:var(--cream);}
+select:focus{outline:none;border-color:var(--green);}
+.frow{margin-bottom:1rem;}
+.flabel{display:block;font-size:0.82rem;font-weight:500;color:var(--mid);margin-bottom:0.4rem;}
+.ci{display:flex;align-items:flex-start;gap:0.7rem;padding:0.7rem 0.9rem;border:1.5px solid #ddd;border-radius:4px;cursor:pointer;transition:all 0.2s;margin-bottom:0.5rem;}
+.ci:hover{border-color:var(--green-mid);background:var(--green-pale);}
+.ci.on{border-color:var(--green);background:var(--green-pale);}
+.ci input{accent-color:var(--green);margin-top:2px;flex-shrink:0;}
+.ci span{font-size:0.85rem;line-height:1.5;}
+.ri{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.9rem;border:1.5px solid #ddd;border-radius:4px;cursor:pointer;transition:all 0.2s;margin-bottom:0.5rem;}
+.ri:hover{border-color:var(--green-mid);background:var(--green-pale);}
+.ri.on{border-color:var(--green);background:var(--green-pale);}
+.ri input{accent-color:var(--green);}
+.ri span{font-size:0.85rem;}
+.btn{background:var(--green);color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Noto Sans JP',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s;width:100%;margin-top:0.5rem;}
+.btn:hover{background:var(--green-light);}
+.btn:disabled{background:#ccc;cursor:not-allowed;}
+.btn.bb{background:var(--blue);} .btn.bb:hover{background:#1a5a9a;}
+.btn.bp{background:var(--purple);} .btn.bp:hover{background:#4a3aa0;}
+.btn.out{background:transparent;color:var(--green);border:1.5px solid var(--green);}
+.btn.out:hover{background:var(--green-pale);}
+.rbox{border-radius:8px;padding:1.5rem;margin-bottom:1.2rem;text-align:center;}
+.rbox.n{background:var(--green-pale);border:2px solid var(--green-mid);}
+.rbox.l{background:#fff8e8;border:2px solid #f0c040;}
+.rbox.m{background:#fff0e8;border:2px solid #f09040;}
+.rbox.h{background:#ffeaea;border:2px solid #e04040;}
+.ricon{font-size:2.5rem;margin-bottom:0.5rem;}
+.rlabel{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
+.rbox.n .rlabel{color:var(--green);} .rbox.l .rlabel{color:#b07800;} .rbox.m .rlabel{color:#c05000;} .rbox.h .rlabel{color:#a02020;}
+.rtitle{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;}
+.aibox{background:white;border-radius:8px;border-left:4px solid var(--green);padding:1.2rem 1.5rem;margin-bottom:1.2rem;}
+.ailabel{display:flex;align-items:center;gap:0.5rem;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.8rem;}
+.aipulse{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.aitext{font-size:0.87rem;line-height:2;color:var(--charcoal);}
+.lrow{display:flex;align-items:center;gap:0.6rem;color:var(--mid);font-size:0.85rem;}
+.td{width:6px;height:6px;background:var(--green-mid);border-radius:50%;animation:tda 1.2s ease-in-out infinite;}
+.td:nth-child(2){animation-delay:0.2s;} .td:nth-child(3){animation-delay:0.4s;}
+@keyframes tda{0%,60%,100%{transform:translateY(0);opacity:0.5}30%{transform:translateY(-4px);opacity:1}}
+.tbox{border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;}
+.tbox.dg{background:var(--green-pale);} .tbox.db{background:var(--blue-pale);} .tbox.dp{background:var(--purple-pale);}
+.tbox h3{font-size:0.85rem;font-weight:700;margin-bottom:0.8rem;}
+.tbox.dg h3{color:var(--green);} .tbox.db h3{color:var(--blue);} .tbox.dp h3{color:var(--purple);}
+.tbox ul{list-style:none;}
+.tbox li{font-size:0.82rem;color:var(--mid);padding:0.3rem 0 0.3rem 1rem;position:relative;line-height:1.6;}
+.tbox li::before{content:'→';position:absolute;left:0;color:var(--green);}
+.icard{background:white;border-radius:8px;border:1px solid rgba(26,107,74,0.1);padding:1.2rem 1.5rem;margin-bottom:1rem;}
+.icard h3{font-size:0.9rem;font-weight:700;color:var(--charcoal);margin-bottom:0.5rem;}
+.icard p{font-size:0.82rem;color:var(--mid);line-height:1.8;}
+.tag{display:inline-block;font-size:0.65rem;padding:0.15rem 0.5rem;border-radius:2px;margin-bottom:0.5rem;}
+.tb{background:var(--blue-pale);color:var(--blue);} .tp{background:var(--purple-pale);color:var(--purple);}
+.dlink{display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.9rem;border-radius:4px;font-size:0.78rem;text-decoration:none;margin-top:0.5rem;transition:background 0.2s;}
+.dlink.db{background:var(--blue-pale);color:var(--blue);} .dlink.dp{background:var(--purple-pale);color:var(--purple);}
+@media(max-width:560px){.cat-grid{grid-template-columns:1fr;} .container{padding:1.5rem 1rem;}}
+button[style*="c05000"], button[style*="orange"] { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+.ts-ok { flex:1;padding:0.85rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.15s; }
+.ts-ok.active { background:var(--green);color:#fff; }
+.ts-ng { flex:1;padding:0.85rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.15s; }
+.ts-ng.active { background:#c05000;color:#fff;border-color:#c05000; }
+.ts-next { background:#ccc;color:#999;border:none;width:100%;padding:0.88rem;border-radius:6px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;display:block;margin-top:0.7rem;transition:all 0.2s; }
+.ts-next:not([disabled]) { background:#1a4a7a;color:#fff; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SLOC <span>Stop the Locomo</span></div>
+  <a href="/" class="back">← トップへ</a>
+</header>
+
+<div class="hero">
+  <h1>ロコモチェック</h1>
+  <p>あなたに合ったチェック方法をお選びください。</p>
+</div>
+
+<div class="container">
+
+<!-- カテゴリー選択 -->
+<div id="catSel">
+  <div class="cat-grid">
+    <div class="cat-card g" onclick="show('general')">
+      <div class="cat-icon">🚶</div>
+      <div class="cat-tgt">一般の方・ご家族へ</div>
+      <div class="cat-title">簡易セルフ<br>チェック</div>
+      <div class="cat-desc">道具不要・1分。AIが個別アドバイスをお伝えします。</div>
+    </div>
+    <div class="cat-card b" onclick="show('medical')">
+      <div class="cat-icon">🏥</div>
+      <div class="cat-tgt">医療・介護関係者へ</div>
+      <div class="cat-title">正式ロコモ度<br>テスト</div>
+      <div class="cat-desc">立ち上がり・2ステップ・ロコモ25の判定基準と資料。</div>
+    </div>
+    <div class="cat-card p" onclick="show('children')">
+      <div class="cat-icon">🧒</div>
+      <div class="cat-tgt">学校・保護者へ</div>
+      <div class="cat-title">子どもロコモ<br>チェック</div>
+      <div class="cat-desc">しゃがみ・片脚立ちなど子どもの運動器を簡単確認。</div>
+    </div>
+  </div>
+</div>
+
+<!-- A：一般向け -->
+<div id="sec-general" class="hidden">
+  <div class="sec-back" onclick="back()">← カテゴリー選択に戻る</div>
+  <div id="g1">
+    <div class="card">
+      <div class="clabel lg">Step 1 / 2　基本情報</div>
+      <h2>簡単な情報を入力してください</h2>
+      <div class="frow"><label class="flabel">年齢</label>
+        <select id="gage"><option value="">選択</option><option>40代</option><option>50代</option><option>60代</option><option>70代</option><option>80代以上</option></select></div>
+      <div class="frow"><label class="flabel">性別</label>
+        <select id="ggender"><option value="">選択</option><option>男性</option><option>女性</option></select></div>
+      <button class="btn" onclick="g2()">次へ →</button>
+    </div>
+  </div>
+  <div id="g2" class="hidden">
+    <div class="card">
+      <div class="clabel lg">Step 2 / 2　チェックリスト</div>
+      <h2>あてはまるものをすべて選んでください</h2>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>片脚で15秒以上立っていられない</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>階段を手すりなしで降りるのが怖い</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>青信号のうちに横断歩道を渡りきれないことがある</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>最近つまずきやすくなった</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>15分以上歩き続けるのが辛い</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>膝や腰が痛くて動くのが億劫</span></label>
+      <label class="ci" onclick="tci(this)"><input type="checkbox"><span>以前と比べて歩くスピードが落ちた</span></label>
+      <button class="btn" onclick="gcalc()" style="margin-top:1rem">結果を見る →</button>
+      <button class="btn out" onclick="g1back()" style="margin-top:0.5rem">← 戻る</button>
+    </div>
+  </div>
+  <div id="g3" class="hidden">
+    <div id="grbox" class="rbox"></div>
+    <div class="aibox">
+      <div class="ailabel"><div class="aipulse"></div>AI 個別アドバイス</div>
+      <div class="lrow" id="glod"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:0.3rem">生成中...</span></div>
+      <div class="aitext hidden" id="gat"></div>
+    </div>
+    <div class="tbox dg" id="gtips"></div>
+    <button class="btn out" onclick="greset()">もう一度チェックする</button>
+  </div>
+</div>
+
+<!-- B：医療関係者 -->
+<div id="sec-medical" class="hidden">
+  <div class="sec-back" onclick="back()">← カテゴリー選択に戻る</div>
+
+  <!-- 計算機モード -->
+  <div id="med-calc">
+    <div class="card"><div class="clabel lb">正式ロコモ度テスト 計算機</div><h2>測定値を入力して判定します</h2><p style="font-size:0.82rem;color:var(--mid);line-height:1.8">3つのテストを実施後、結果を入力してください。最も低いスコアでロコモ度を判定します。</p></div>
+
+    <!-- テスト① 立ち上がり -->
+    <div class="icard">
+      <div class="tag tb">テスト① 立ち上がりテスト</div>
+      <h3 style="margin-bottom:0.8rem">40cm・20cmの台から立ち上がれますか？</h3>
+      <div class="ci" onclick="selMed('stand','3',this)" id="ms1"><input type="radio" name="stand"><span>40cmの台から<b>片脚</b>で立ち上がれる</span></div>
+      <div class="ci" onclick="selMed('stand','2',this)" id="ms2"><input type="radio" name="stand"><span>20cmの台から<b>片脚</b>で立ち上がれる（40cmは不可）</span></div>
+      <div class="ci" onclick="selMed('stand','1',this)" id="ms3"><input type="radio" name="stand"><span>20cmの台から<b>両脚</b>で立ち上がれる（片脚は不可）</span></div>
+      <div class="ci" onclick="selMed('stand','0',this)" id="ms4"><input type="radio" name="stand"><span>20cmの台から<b>両脚でも</b>立ち上がれない</span></div>
+      <div style="margin-top:0.8rem;padding:0.7rem 0.9rem;background:var(--cream);border-radius:4px;font-size:0.78rem;color:var(--mid);line-height:1.7">
+        <b style="color:var(--blue)">判定基準：</b> 片脚40cm可→正常 ／ 片脚20cm可→ロコモ度1相当 ／ 両脚20cm→ロコモ度2相当 ／ 不可→ロコモ度3相当
+      </div>
+    </div>
+
+    <!-- テスト② 2ステップ -->
+    <div class="icard">
+      <div class="tag tb">テスト② 2ステップテスト</div>
+      <h3 style="margin-bottom:0.8rem">測定値を入力してください</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;">
+        <div>
+          <label style="font-size:0.8rem;color:var(--mid);display:block;margin-bottom:0.3rem">身長（cm）</label>
+          <input type="number" id="mHeight" placeholder="例：165" min="100" max="220" oninput="calcStep()" style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #ddd;border-radius:4px;font-size:0.88rem;font-family:inherit;">
+        </div>
+        <div>
+          <label style="font-size:0.8rem;color:var(--mid);display:block;margin-bottom:0.3rem">2歩の合計距離（cm）</label>
+          <input type="number" id="mStep" placeholder="例：240" min="50" max="400" oninput="calcStep()" style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #ddd;border-radius:4px;font-size:0.88rem;font-family:inherit;">
+        </div>
+      </div>
+      <div id="stepCalcResult" style="padding:0.7rem 0.9rem;background:var(--cream);border-radius:4px;font-size:0.85rem;color:var(--mid);line-height:1.7;min-height:40px;">
+        身長と2歩の距離を入力すると自動計算します
+      </div>
+      <div style="margin-top:0.6rem;padding:0.7rem 0.9rem;background:var(--cream);border-radius:4px;font-size:0.78rem;color:var(--mid);line-height:1.7">
+        <b style="color:var(--blue)">判定基準：</b> 1.3以上→正常 ／ 1.1〜1.3未満→ロコモ度1 ／ 0.9〜1.1未満→ロコモ度2 ／ 0.9未満→ロコモ度3
+      </div>
+    </div>
+
+    <!-- テスト③ ロコモ25 -->
+    <div class="icard">
+      <div class="tag tb">テスト③ ロコモ25（合計点数を入力）</div>
+      <h3 style="margin-bottom:0.8rem">ロコモ25の合計点数</h3>
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem;">
+        <input type="number" id="mLoco25" placeholder="0〜100" min="0" max="100" oninput="calcLoco25()" style="width:140px;padding:0.6rem 0.8rem;border:1.5px solid #ddd;border-radius:4px;font-size:1rem;font-family:inherit;">
+        <span style="font-size:0.85rem;color:var(--mid)">点</span>
+      </div>
+      <div id="loco25Result" style="padding:0.7rem 0.9rem;background:var(--cream);border-radius:4px;font-size:0.85rem;color:var(--mid);line-height:1.7;min-height:40px;">
+        点数を入力すると判定します
+      </div>
+      <div style="margin-top:0.6rem;padding:0.7rem 0.9rem;background:var(--cream);border-radius:4px;font-size:0.78rem;color:var(--mid);line-height:1.7">
+        <b style="color:var(--blue)">判定基準：</b> 7点以下→正常 ／ 8〜15点→ロコモ度1 ／ 16〜23点→ロコモ度2 ／ 24点以上→ロコモ度3
+      </div>
+      <a href="#" class="dlink db" style="margin-top:0.8rem;display:block">📄 ロコモ25 問診票をダウンロード</a>
+    </div>
+
+    <!-- 総合判定ボタン -->
+    <button class="btn" id="medCalcBtn" style="background:var(--blue);color:white;margin-bottom:0.8rem;" onclick="medJudge()" disabled>総合判定する →</button>
+
+    <!-- 総合判定結果 -->
+    <div id="medResult" class="hidden">
+      <div id="medResultBox" style="border-radius:10px;padding:1.8rem;text-align:center;margin-bottom:1.5rem;"></div>
+      <div id="medResultDetail" style="background:white;border-radius:8px;border:1px solid #b5d4f4;padding:1.2rem 1.5rem;margin-bottom:1.5rem;font-size:0.84rem;color:var(--mid);line-height:1.9;"></div>
+      <button class="btn out" onclick="medReset()">もう一度測定する</button>
+    </div>
+
+    <div class="icard" style="margin-top:0.5rem;">
+      <h3>ロコモコーディネーター（LC）資格</h3>
+      <p style="font-size:0.83rem;color:var(--mid);line-height:1.7;margin-bottom:0.5rem">ロコモの測定・指導を行う専門資格。医療・介護・健康分野の専門家を対象にSLOCが認定しています。</p>
+      <a href="#" class="dlink db">LC資格について詳しく →</a>
+    </div>
+  </div>
+</div>
+
+<!-- C：子どもロコモ -->
+<div id="sec-children" class="hidden">
+  <div class="sec-back" onclick="back()">← カテゴリー選択に戻る</div>
+  <div id="csel">
+    <div class="card"><div class="clabel lp">子どもロコモチェック</div><h2>対象を選んでください</h2>
+      <div class="ri" onclick="selc('parent',this)"><input type="radio" name="cc"><span>保護者の方（お子さんの様子を確認したい）</span></div>
+      <div class="ri" onclick="selc('teacher',this)"><input type="radio" name="cc"><span>学校・教育関係者（スクリーニングに活用したい）</span></div>
+      <button class="btn bp" id="cnext" disabled onclick="showc()" style="margin-top:0.8rem">次へ →</button>
+    </div>
+  </div>
+  <div id="c-parent" class="hidden">
+    <div class="sec-back" onclick="cback()">← 対象選択に戻る</div>
+    <!-- ステップ式チェック -->
+    <div id="cp-step-container">
+      <!-- プログレス -->
+      <div style="background:white;border-radius:8px;border:1px solid #f0c090;padding:1rem 1.5rem;margin-bottom:1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+          <div style="font-size:0.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">子どもロコモチェック</div>
+          <div style="font-size:0.85rem;font-weight:700;color:var(--orange)" id="cp-progress-txt">1 / 5</div>
+        </div>
+        <div style="background:#eee;border-radius:4px;height:6px;overflow:hidden;">
+          <div id="cp-step-bar" style="height:100%;background:var(--orange);border-radius:4px;width:20%;transition:width 0.3s;"></div>
+        </div>
+      </div>
+
+      <!-- 各ステップ -->
+      <div id="cp-step-1" class="cp-step">
+        <div class="card" style="border-color:#f0c090;">
+          <div class="clabel lp">テスト① バランス能力</div>
+          <h2>片脚立ち</h2>
+          <div style="background:var(--orange-pale);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:0.84rem;font-weight:700;color:var(--orange);margin-bottom:0.4rem">やり方</p>
+            <p style="font-size:0.83rem;color:var(--charcoal);line-height:1.7">片脚を少し上げて、ふらつかずに5秒以上立てるか確認します。左右両方チェックしてください。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:1rem;margin-bottom:1rem;border:1px solid #eee;">
+            <p style="font-size:0.8rem;font-weight:700;color:var(--mid);margin-bottom:0.4rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.8rem;color:var(--mid);line-height:1.9;padding-left:1.2rem;">
+              <li>足が地面についてしまう</li>
+              <li>上げた足が軸足に触れる</li>
+              <li>手が大きく泳いでしまう</li>
+            </ul>
+          </div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--charcoal);margin-bottom:0.6rem">判定：左右どちらかでふらつかずに5秒以上立てましたか？</p>
+          <div style="display:flex;gap:0.8rem;">
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(1, true, this)">✓ できた</button>
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(1, false, this)">✗ できなかった</button>
+          </div>
+        </div>
+        <button id="cp-next-1" style="background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;" onclick="cpNextStep(2)" disabled>次へ →</button>
+      </div>
+
+      <div id="cp-step-2" class="cp-step hidden">
+        <div class="card" style="border-color:#f0c090;">
+          <div class="clabel lp">テスト② 下半身の柔軟性・支持力</div>
+          <h2>しゃがみ込み</h2>
+          <div style="background:var(--orange-pale);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:0.84rem;font-weight:700;color:var(--orange);margin-bottom:0.4rem">やり方</p>
+            <p style="font-size:0.83rem;color:var(--charcoal);line-height:1.7">かかとを地面につけたまま、できる限り深くしゃがみ込みます。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:1rem;margin-bottom:1rem;border:1px solid #eee;">
+            <p style="font-size:0.8rem;font-weight:700;color:var(--mid);margin-bottom:0.4rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.8rem;color:var(--mid);line-height:1.9;padding-left:1.2rem;">
+              <li>かかとが浮いてしまう</li>
+              <li>途中で止まる</li>
+              <li>後ろにひっくり返る</li>
+            </ul>
+          </div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--charcoal);margin-bottom:0.6rem">判定：かかとをつけたまま深くしゃがめましたか？</p>
+          <div style="display:flex;gap:0.8rem;">
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(2, true, this)">✓ できた</button>
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(2, false, this)">✗ できなかった</button>
+          </div>
+        </div>
+        <button id="cp-next-2" style="background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;" onclick="cpNextStep(3)" disabled>次へ →</button>
+      </div>
+
+      <div id="cp-step-3" class="cp-step hidden">
+        <div class="card" style="border-color:#f0c090;">
+          <div class="clabel lp">テスト③ 背中・太もも裏の柔軟性</div>
+          <h2>直立体前屈</h2>
+          <div style="background:var(--orange-pale);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:0.84rem;font-weight:700;color:var(--orange);margin-bottom:0.4rem">やり方</p>
+            <p style="font-size:0.83rem;color:var(--charcoal);line-height:1.7">膝をまっすぐ伸ばした状態で前屈し、指先が床につくか確認します。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:1rem;margin-bottom:1rem;border:1px solid #eee;">
+            <p style="font-size:0.8rem;font-weight:700;color:var(--mid);margin-bottom:0.4rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.8rem;color:var(--mid);line-height:1.9;padding-left:1.2rem;">
+              <li>膝が曲がってしまう</li>
+              <li>指が床に届かない</li>
+            </ul>
+          </div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--charcoal);margin-bottom:0.6rem">判定：膝を伸ばしたまま指先が床につきましたか？</p>
+          <div style="display:flex;gap:0.8rem;">
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(3, true, this)">✓ できた</button>
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(3, false, this)">✗ できなかった</button>
+          </div>
+        </div>
+        <button id="cp-next-3" style="background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;" onclick="cpNextStep(4)" disabled>次へ →</button>
+      </div>
+
+      <div id="cp-step-4" class="cp-step hidden">
+        <div class="card" style="border-color:#f0c090;">
+          <div class="clabel lp">テスト④ 肩周りの柔軟性</div>
+          <h2>腕上げ / バンザイ</h2>
+          <div style="background:var(--orange-pale);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:0.84rem;font-weight:700;color:var(--orange);margin-bottom:0.4rem">やり方</p>
+            <p style="font-size:0.83rem;color:var(--charcoal);line-height:1.7">両腕を耳の横まで、垂直にまっすぐ上げられるか確認します。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:1rem;margin-bottom:1rem;border:1px solid #eee;">
+            <p style="font-size:0.8rem;font-weight:700;color:var(--mid);margin-bottom:0.4rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.8rem;color:var(--mid);line-height:1.9;padding-left:1.2rem;">
+              <li>腕が耳より前に出る</li>
+              <li>肘が曲がる</li>
+              <li>体が前後にのけぞる</li>
+            </ul>
+          </div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--charcoal);margin-bottom:0.6rem">判定：両腕を耳の横まで垂直に上げられましたか？</p>
+          <div style="display:flex;gap:0.8rem;">
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(4, true, this)">✓ できた</button>
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(4, false, this)">✗ できなかった</button>
+          </div>
+        </div>
+        <button id="cp-next-4" style="background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;" onclick="cpNextStep(5)" disabled>次へ →</button>
+      </div>
+
+      <div id="cp-step-5" class="cp-step hidden">
+        <div class="card" style="border-color:#f0c090;">
+          <div class="clabel lp">テスト⑤ 巧緻性・連動性</div>
+          <h2>グーパー動作</h2>
+          <div style="background:var(--orange-pale);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:0.84rem;font-weight:700;color:var(--orange);margin-bottom:0.4rem">やり方</p>
+            <p style="font-size:0.83rem;color:var(--charcoal);line-height:1.7">手を素早く力強く、グーとパーを繰り返します。5回続けて確認してください。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:1rem;margin-bottom:1rem;border:1px solid #eee;">
+            <p style="font-size:0.8rem;font-weight:700;color:var(--mid);margin-bottom:0.4rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.8rem;color:var(--mid);line-height:1.9;padding-left:1.2rem;">
+              <li>指が最後まで伸びきらない</li>
+              <li>左右で動きがズレる</li>
+              <li>動作がぎこちない</li>
+            </ul>
+          </div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--charcoal);margin-bottom:0.6rem">判定：素早く力強くグーパーをスムーズにできましたか？</p>
+          <div style="display:flex;gap:0.8rem;">
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid var(--green);background:white;color:var(--green);font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(5, true, this)">✓ できた</button>
+            <button style="flex:1;padding:0.9rem;border-radius:6px;border:2px solid #f09040;background:white;color:#c05000;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;" onclick="cpCheck(5, false, this)">✗ できなかった</button>
+          </div>
+        </div>
+        <button id="cp-next-5" style="background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;" onclick="cpShowResult()" disabled>結果を見る →</button>
+      </div>
+    </div>
+
+    <!-- 結果 -->
+    <div id="cp-result" class="hidden">
+      <div id="cp-result-box" style="border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.2rem;"></div>
+      <div id="cp-advice" style="margin-bottom:1.2rem;"></div>
+      <div style="background:var(--orange-pale);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.83rem;font-weight:700;color:var(--orange);margin-bottom:0.5rem">痛みがある場合は</p>
+        <p style="font-size:0.82rem;color:var(--mid);line-height:1.8">動作中に「膝が痛い」「腰が痛い」などの訴えがある場合は、単なる柔軟性不足ではなく運動器の疾患が隠れている可能性があります。整形外科専門医への受診を検討してください。</p>
+      </div>
+      <button style="background:transparent;color:var(--orange);border:1.5px solid var(--orange);width:100%;padding:0.8rem;border-radius:6px;font-family:inherit;font-size:0.85rem;cursor:pointer;" onclick="cpStepReset()">もう一度チェックする</button>
+    </div>
+  </div>
+
+  <div id="c-teacher" class="hidden">
+    <div class="sec-back" onclick="cback()">← 対象選択に戻る</div>
+
+    <!-- 記録画面 -->
+    <div id="ts-main">
+      <div style="background:white;border-radius:8px;border:1px solid #b5d4f4;padding:0.8rem 1.2rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:0.78rem;color:var(--blue);font-weight:500;">学校・教育関係者向け スクリーニング</span>
+        <span style="font-size:0.78rem;color:var(--mid);"><span id="ts-num">1</span>人目　テスト<span id="ts-test-num">1</span>/5</span>
+      </div>
+
+      <!-- テスト① -->
+      <div id="ts-q1">
+        <div class="card" style="border-color:#b5d4f4;">
+          <div class="clabel lb">テスト① バランス能力</div>
+          <h2>片脚立ち</h2>
+          <div style="background:#e6f1fb;border-radius:6px;padding:0.9rem;margin-bottom:0.8rem;">
+            <p style="font-size:0.82rem;font-weight:700;color:var(--blue);margin-bottom:0.3rem">やり方</p>
+            <p style="font-size:0.82rem;color:var(--charcoal);line-height:1.7">片脚を少し上げて、ふらつかずに5秒以上立てるか確認。左右両方チェック。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:0.9rem;margin-bottom:0.9rem;border:1px solid #eee;">
+            <p style="font-size:0.78rem;font-weight:700;color:var(--mid);margin-bottom:0.3rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.78rem;color:var(--mid);line-height:1.8;padding-left:1.1rem;"><li>足が地面についてしまう</li><li>上げた足が軸足に触れる</li><li>手が大きく泳ぐ</li></ul>
+          </div>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="ts-ok" onclick="tsAns(1,true,this)">✓ 合格</button>
+            <button class="ts-ng" onclick="tsAns(1,false,this)">✗ 要注意</button>
+          </div>
+        </div>
+        <button class="ts-next" id="ts-n1" onclick="tsGo(2)" disabled>次のテストへ →</button>
+      </div>
+
+      <!-- テスト② -->
+      <div id="ts-q2" class="hidden">
+        <div class="card" style="border-color:#b5d4f4;">
+          <div class="clabel lb">テスト② 下半身の柔軟性・支持力</div>
+          <h2>しゃがみ込み</h2>
+          <div style="background:#e6f1fb;border-radius:6px;padding:0.9rem;margin-bottom:0.8rem;">
+            <p style="font-size:0.82rem;font-weight:700;color:var(--blue);margin-bottom:0.3rem">やり方</p>
+            <p style="font-size:0.82rem;color:var(--charcoal);line-height:1.7">かかとを地面につけたまま、深くしゃがみ込む。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:0.9rem;margin-bottom:0.9rem;border:1px solid #eee;">
+            <p style="font-size:0.78rem;font-weight:700;color:var(--mid);margin-bottom:0.3rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.78rem;color:var(--mid);line-height:1.8;padding-left:1.1rem;"><li>かかとが浮いてしまう</li><li>途中で止まる</li><li>後ろにひっくり返る</li></ul>
+          </div>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="ts-ok" onclick="tsAns(2,true,this)">✓ 合格</button>
+            <button class="ts-ng" onclick="tsAns(2,false,this)">✗ 要注意</button>
+          </div>
+        </div>
+        <button class="ts-next" id="ts-n2" onclick="tsGo(3)" disabled>次のテストへ →</button>
+      </div>
+
+      <!-- テスト③ -->
+      <div id="ts-q3" class="hidden">
+        <div class="card" style="border-color:#b5d4f4;">
+          <div class="clabel lb">テスト③ 背中・太もも裏の柔軟性</div>
+          <h2>直立体前屈</h2>
+          <div style="background:#e6f1fb;border-radius:6px;padding:0.9rem;margin-bottom:0.8rem;">
+            <p style="font-size:0.82rem;font-weight:700;color:var(--blue);margin-bottom:0.3rem">やり方</p>
+            <p style="font-size:0.82rem;color:var(--charcoal);line-height:1.7">膝を伸ばしたまま前屈し、指先が床につくか確認。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:0.9rem;margin-bottom:0.9rem;border:1px solid #eee;">
+            <p style="font-size:0.78rem;font-weight:700;color:var(--mid);margin-bottom:0.3rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.78rem;color:var(--mid);line-height:1.8;padding-left:1.1rem;"><li>膝が曲がってしまう</li><li>指が床に届かない</li></ul>
+          </div>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="ts-ok" onclick="tsAns(3,true,this)">✓ 合格</button>
+            <button class="ts-ng" onclick="tsAns(3,false,this)">✗ 要注意</button>
+          </div>
+        </div>
+        <button class="ts-next" id="ts-n3" onclick="tsGo(4)" disabled>次のテストへ →</button>
+      </div>
+
+      <!-- テスト④ -->
+      <div id="ts-q4" class="hidden">
+        <div class="card" style="border-color:#b5d4f4;">
+          <div class="clabel lb">テスト④ 肩周りの柔軟性</div>
+          <h2>腕上げ / バンザイ</h2>
+          <div style="background:#e6f1fb;border-radius:6px;padding:0.9rem;margin-bottom:0.8rem;">
+            <p style="font-size:0.82rem;font-weight:700;color:var(--blue);margin-bottom:0.3rem">やり方</p>
+            <p style="font-size:0.82rem;color:var(--charcoal);line-height:1.7">両腕を耳の横まで垂直にまっすぐ上げられるか確認。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:0.9rem;margin-bottom:0.9rem;border:1px solid #eee;">
+            <p style="font-size:0.78rem;font-weight:700;color:var(--mid);margin-bottom:0.3rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.78rem;color:var(--mid);line-height:1.8;padding-left:1.1rem;"><li>腕が耳より前に出る</li><li>肘が曲がる</li><li>体が前後にのけぞる</li></ul>
+          </div>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="ts-ok" onclick="tsAns(4,true,this)">✓ 合格</button>
+            <button class="ts-ng" onclick="tsAns(4,false,this)">✗ 要注意</button>
+          </div>
+        </div>
+        <button class="ts-next" id="ts-n4" onclick="tsGo(5)" disabled>次のテストへ →</button>
+      </div>
+
+      <!-- テスト⑤ -->
+      <div id="ts-q5" class="hidden">
+        <div class="card" style="border-color:#b5d4f4;">
+          <div class="clabel lb">テスト⑤ 巧緻性・連動性</div>
+          <h2>グーパー動作</h2>
+          <div style="background:#e6f1fb;border-radius:6px;padding:0.9rem;margin-bottom:0.8rem;">
+            <p style="font-size:0.82rem;font-weight:700;color:var(--blue);margin-bottom:0.3rem">やり方</p>
+            <p style="font-size:0.82rem;color:var(--charcoal);line-height:1.7">手を素早く力強く、グーとパーを5回繰り返す。</p>
+          </div>
+          <div style="background:#fafafa;border-radius:6px;padding:0.9rem;margin-bottom:0.9rem;border:1px solid #eee;">
+            <p style="font-size:0.78rem;font-weight:700;color:var(--mid);margin-bottom:0.3rem">⚠️ 要注意のサイン</p>
+            <ul style="font-size:0.78rem;color:var(--mid);line-height:1.8;padding-left:1.1rem;"><li>指が最後まで伸びきらない</li><li>左右で動きがズレる</li><li>動作がぎこちない</li></ul>
+          </div>
+          <div style="display:flex;gap:0.6rem;">
+            <button class="ts-ok" onclick="tsAns(5,true,this)">✓ 合格</button>
+            <button class="ts-ng" onclick="tsAns(5,false,this)">✗ 要注意</button>
+          </div>
+        </div>
+        <button class="ts-next" id="ts-n5" onclick="tsNextPerson()" disabled>次の生徒へ →</button>
+        <button style="background:transparent;color:var(--blue);border:1.5px solid var(--blue);width:100%;padding:0.8rem;border-radius:6px;font-family:inherit;font-size:0.85rem;cursor:pointer;margin-top:0.5rem;" onclick="tsResult()">集計結果を見る（終了）</button>
+      </div>
+    </div>
+
+    <!-- 集計結果 -->
+    <div id="ts-result" class="hidden">
+      <div id="ts-result-box" style="border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.2rem;background:#e6f1fb;border:2px solid #85b7eb;"></div>
+      <div id="ts-result-detail" style="background:white;border-radius:8px;border:1px solid #b5d4f4;padding:1.2rem 1.5rem;margin-bottom:1.2rem;"></div>
+      <button style="background:#1a4a7a;color:#fff;border:none;width:100%;padding:0.85rem;border-radius:6px;font-family:inherit;font-size:0.9rem;font-weight:700;cursor:pointer;" onclick="tsReset()">最初からやり直す</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const CLAUDE_API_KEY = "YOUR_API_KEY_HERE";
+
+// ── グローバル変数 ──
+let ccat = null;
+let medScores = { stand: null, step: null, loco25: null };
+
+// ── パネル切り替え ──
+function show(id) {
+  document.getElementById('catSel').classList.add('hidden');
+  ['sec-general','sec-medical','sec-children'].forEach(s =>
+    document.getElementById(s).classList.toggle('hidden', s !== 'sec-'+id)
+  );
+  window.scrollTo(0,0);
+}
+function back() {
+  document.getElementById('catSel').classList.remove('hidden');
+  ['sec-general','sec-medical','sec-children'].forEach(s =>
+    document.getElementById(s).classList.add('hidden')
+  );
+  window.scrollTo(0,0);
+}
+
+// ── 子どもロコモ：対象選択 ──
+function selc(type, el) {
+  ccat = type;
+  document.querySelectorAll('input[name="cc"]').forEach(r => r.closest('.ri').classList.remove('on'));
+  el.classList.add('on');
+  el.querySelector('input').checked = true;
+  document.getElementById('cnext').disabled = false;
+}
+function showc() {
+  document.getElementById('csel').classList.add('hidden');
+  document.getElementById('c-parent').classList.toggle('hidden', ccat !== 'parent');
+  document.getElementById('c-teacher').classList.toggle('hidden', ccat !== 'teacher');
+  if (ccat === 'teacher') tsInit();
+  window.scrollTo(0,0);
+}
+function creset() {
+  ccat = null;
+  document.getElementById('csel').classList.remove('hidden');
+  document.getElementById('c-parent').classList.add('hidden');
+  document.getElementById('c-teacher').classList.add('hidden');
+  document.getElementById('cnext').disabled = true;
+  document.querySelectorAll('input[name="cc"]').forEach(r => r.checked = false);
+  document.querySelectorAll('.ri').forEach(r => r.classList.remove('on'));
+  // reset parent steps
+  cpStepReset();
+  window.scrollTo(0,0);
+}
+function tci(el) {
+  el.classList.toggle('on');
+  el.querySelector('input').checked = el.classList.contains('on');
+}
+
+// ── 一般向け ──
+function g2() {
+  const age = document.getElementById('gage').value;
+  const gender = document.getElementById('ggender').value;
+  if (!age || !gender) { alert('年齢と性別を選択してください'); return; }
+  document.getElementById('g1').classList.add('hidden');
+  document.getElementById('g2').classList.remove('hidden');
+}
+function g1back() {
+  document.getElementById('g2').classList.add('hidden');
+  document.getElementById('g1').classList.remove('hidden');
+}
+function gcalc() {
+  const age = document.getElementById('gage').value;
+  const gender = document.getElementById('ggender').value;
+  const checked = Array.from(document.querySelectorAll('#g2 .ci.on')).map(e => e.querySelector('span').textContent);
+  const n = checked.length;
+  let lv, em, lt, tt, tips;
+  if (n === 0) { lv='safe'; em='✓'; lt='気になるサインなし'; tt='良好な状態です'; tips='現在は良好です。ロコトレ（片脚立ち・スクワット）を続けてこの状態を維持しましょう。'; }
+  else if (n <= 2) { lv='caut'; em='!'; lt='注意サイン '+n+'つ'; tt='少し気になるサインがあります'; tips='気になるサインが出始めています。毎日の片脚立ちから始めましょう。気になる場合はかかりつけ医に相談してください。'; }
+  else { lv='warn'; em='!!'; lt='注意サイン '+n+'つ'; tt='整形外科への受診をお勧めします'; tips='複数のサインが見られます。整形外科専門医への受診をお勧めします。正式なロコモ度テストで状態を確認しましょう。'; }
+  const colors = {safe:['var(--green-pale)','var(--green-mid)','var(--green)'], caut:['#fff8e0','#f0c040','#8a6000'], warn:['#fff0e0','#f09040','var(--orange)']};
+  const [bg, border, color] = colors[lv];
+  document.getElementById('grbox').style.cssText = `background:${bg};border:2px solid ${border};border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.2rem;`;
+  document.getElementById('grbox').innerHTML = `<div style="font-size:2rem;margin-bottom:.4rem">${em}</div><div style="font-size:.72rem;color:${color};letter-spacing:.1em;text-transform:uppercase">${lt}</div><div style="font-family:Noto Serif JP,serif;font-size:1.1rem;font-weight:700;margin-top:.3rem">${tt}</div>`;
+  document.getElementById('gtips').style.cssText = 'background:var(--green-pale);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;font-size:.83rem;color:var(--mid);line-height:1.9;';
+  document.getElementById('gtips').textContent = tips;
+  document.getElementById('g2').classList.add('hidden');
+  document.getElementById('g3').classList.remove('hidden');
+  genAI(age, gender, checked, lv);
+}
+function greset() {
+  document.querySelectorAll('#g2 .ci').forEach(e => { e.classList.remove('on'); e.querySelector('input').checked=false; });
+  document.getElementById('gage').value=''; document.getElementById('ggender').value='';
+  document.getElementById('g3').classList.add('hidden');
+  document.getElementById('g2').classList.add('hidden');
+  document.getElementById('g1').classList.remove('hidden');
+}
+
+async function genAI(age, gender, syms, lv) {
+  const st = syms.length ? syms.join('、') : 'なし';
+  const lm = {safe:'気になるサインなし（良好）', caut:'注意サインあり', warn:'要注意（複数サイン）'};
+  const prompt = `あなたはロコモティブシンドローム予防NPO「SLOC」のアドバイザーです。
+以下の方の簡易チェック結果に対して、温かく具体的な個別アドバイスを日本語150〜200文字で作成してください。
+年齢：${age}、性別：${gender}、あてはまったサイン：${st}、総合判定：${lm[lv]}
+条件：「あなた」で話しかける、医療診断でなく生活改善アドバイス、具体的な行動1〜2つを提案、前向きな文体`;
+  const el = document.getElementById('glod');
+  const txt = document.getElementById('gat');
+  try {
+    if (CLAUDE_API_KEY === 'YOUR_API_KEY_HERE') {
+      await new Promise(r => setTimeout(r, 1500));
+      const demos = {
+        safe: `現在は良好な状態ですね。${age}の今から続けることが大切です。毎朝の片脚立ち（左右各1分）を習慣にすると転倒予防に効果的です。半年後にもう一度チェックしてみてください。`,
+        caut: `気になるサインが出始めています。まず毎日の片脚立ち（左右各1分）から始めてみてください。気になる症状が続く場合はかかりつけ医に相談することをお勧めします。`,
+        warn: `複数のサインが見られます。まずかかりつけの整形外科に相談することをお勧めします。正式なロコモ度テストで状態を確認することで、適切な対策が見つかります。`
+      };
+      el.classList.add('hidden'); txt.classList.remove('hidden');
+      typeText(txt, demos[lv]); return;
+    }
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json','x-api-key':CLAUDE_API_KEY,'anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:300,messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    el.classList.add('hidden'); txt.classList.remove('hidden');
+    typeText(txt, data.content?.[0]?.text || '専門医へのご相談をお勧めします。');
+  } catch(e) { el.classList.add('hidden'); txt.classList.remove('hidden'); txt.textContent='専門医へのご相談をお勧めします。'; }
+}
+function typeText(el, text) {
+  el.innerHTML=''; let i=0;
+  const t = setInterval(()=>{ el.textContent+=text[i++]; if(i>=text.length) clearInterval(t); }, 22);
+}
+
+// ── 医療パネル ──
+function selMed(name, val, el) {
+  medScores[name] = parseInt(val);
+  document.querySelectorAll('input[name="'+name+'"]').forEach(r => r.closest('.ci').classList.remove('on'));
+  el.classList.add('on');
+  el.querySelector('input').checked = true;
+  checkMedReady();
+}
+function calcStep() {
+  const h = parseFloat(document.getElementById('mHeight').value);
+  const s = parseFloat(document.getElementById('mStep').value);
+  const el = document.getElementById('stepCalcResult');
+  if (!h || !s || h<100 || s<50) { el.innerHTML='身長と2歩の距離を入力すると自動計算します'; el.style.color='var(--mid)'; medScores.step=null; checkMedReady(); return; }
+  const ratio = s/h, r = Math.round(ratio*100)/100;
+  let score, judge, color;
+  if (ratio>=1.3) { score=3; judge='正常範囲'; color='var(--green)'; }
+  else if (ratio>=1.1) { score=2; judge='ロコモ度1相当'; color='#8a6000'; }
+  else if (ratio>=0.9) { score=1; judge='ロコモ度2相当'; color='var(--orange)'; }
+  else { score=0; judge='ロコモ度3相当'; color='#a02020'; }
+  el.innerHTML=`2ステップ値：<b style="font-size:1.1rem;color:${color}">${r}</b>　→　<b style="color:${color}">${judge}</b>`;
+  medScores.step=score; checkMedReady();
+}
+function calcLoco25() {
+  const v = parseInt(document.getElementById('mLoco25').value);
+  const el = document.getElementById('loco25Result');
+  if (isNaN(v)||v<0||v>100) { el.innerHTML='点数を入力すると判定します'; medScores.loco25=null; checkMedReady(); return; }
+  let score, judge, color;
+  if (v<=7) { score=3; judge='正常範囲'; color='var(--green)'; }
+  else if (v<=15) { score=2; judge='ロコモ度1相当'; color='#8a6000'; }
+  else if (v<=23) { score=1; judge='ロコモ度2相当'; color='var(--orange)'; }
+  else { score=0; judge='ロコモ度3相当'; color='#a02020'; }
+  el.innerHTML=`${v}点　→　<b style="color:${color}">${judge}</b>`;
+  medScores.loco25=score; checkMedReady();
+}
+function checkMedReady() {
+  const ok = medScores.stand!==null && medScores.step!==null && medScores.loco25!==null;
+  document.getElementById('medCalcBtn').disabled = !ok;
+}
+function medJudge() {
+  const min = Math.min(medScores.stand, medScores.step, medScores.loco25);
+  const levels = [
+    {lv:'ロコモ度3',bg:'#ffeaea',border:'#e04040',color:'#a02020',desc:'移動機能の低下が進行し、社会参加に支障が生じている状態です。専門医による評価と介入が必要です。'},
+    {lv:'ロコモ度2',bg:'#fff0e0',border:'#f09040',color:'var(--orange)',desc:'移動機能の低下が進んでいる状態です。整形外科受診と本格的なロコトレ開始を強くお勧めします。'},
+    {lv:'ロコモ度1',bg:'#fff8e0',border:'#f0c040',color:'#8a6000',desc:'移動機能の低下が始まっています。ロコトレを中心とした運動療法を開始し、定期的な再評価を推奨します。'},
+    {lv:'正常範囲',bg:'var(--green-pale)',border:'var(--green-mid)',color:'var(--green)',desc:'現時点で移動機能は良好です。ロコトレを継続し、定期的なロコモ度チェックで予防を続けましょう。'},
+  ];
+  const r = levels[min];
+  const rb = document.getElementById('medResultBox');
+  rb.style.cssText=`background:${r.bg};border:2px solid ${r.border};border-radius:10px;padding:1.8rem;text-align:center;margin-bottom:1.5rem;`;
+  rb.innerHTML=`<div style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:${r.color};margin-bottom:.4rem">総合判定</div><div style="font-family:'Noto Serif JP',serif;font-size:1.8rem;font-weight:700;color:${r.color}">${r.lv}</div><p style="font-size:.82rem;color:${r.color};margin-top:.5rem">${r.desc}</p>`;
+  const scoreNames=['立ち上がり','2ステップ','ロコモ25'];
+  const scores=[medScores.stand,medScores.step,medScores.loco25];
+  const judgeNames=['ロコモ度3相当','ロコモ度2相当','ロコモ度1相当','正常'];
+  document.getElementById('medResultDetail').innerHTML=
+    scores.map((s,i)=>`<div style="display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid #eee;font-size:.83rem"><span>${scoreNames[i]}</span><span style="font-weight:500">${judgeNames[3-s]}</span></div>`).join('')+
+    '<p style="font-size:.75rem;color:var(--mid);margin-top:.8rem">※ 3テストのうち最も低いスコアで総合判定しています。</p>';
+  document.getElementById('medResult').classList.remove('hidden');
+  document.getElementById('medResult').scrollIntoView({behavior:'smooth'});
+}
+function medReset() {
+  medScores={stand:null,step:null,loco25:null};
+  document.querySelectorAll('input[name="stand"]').forEach(r=>r.closest('.ci').classList.remove('on'));
+  document.getElementById('mHeight').value=''; document.getElementById('mStep').value=''; document.getElementById('mLoco25').value='';
+  document.getElementById('stepCalcResult').innerHTML='身長と2歩の距離を入力すると自動計算します';
+  document.getElementById('loco25Result').innerHTML='点数を入力すると判定します';
+  document.getElementById('medResult').classList.add('hidden');
+  document.getElementById('medCalcBtn').disabled=true;
+}
+
+// ── 保護者向け ステップ式 ──
+let cpResults = [null,null,null,null,null];
+function cpCheck(step, pass, btn) {
+  cpResults[step-1] = pass;
+  const card = btn.closest('.card');
+  card.querySelectorAll('button').forEach(b => {
+    const isOk = b.textContent.includes('できた') || b.textContent.includes('合格');
+    b.style.background='white'; b.style.color=isOk?'var(--green)':'#c05000'; b.style.borderColor=isOk?'var(--green)':'#f09040';
+  });
+  btn.style.background = pass?'var(--green)':'#c05000'; btn.style.color='#fff'; btn.style.borderColor=pass?'var(--green)':'#c05000';
+  const nb = document.getElementById('cp-next-'+step);
+  if(nb){nb.disabled=false; nb.style.cssText='background:#c05000;color:#ffffff;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;';}
+}
+function cpNextStep(next) {
+  document.getElementById('cp-step-'+(next-1)).classList.add('hidden');
+  document.getElementById('cp-step-'+next).classList.remove('hidden');
+  document.getElementById('cp-step-bar').style.width = Math.round(next/5*100)+'%';
+  document.getElementById('cp-progress-txt').textContent = next+' / 5';
+  window.scrollTo(0,0);
+}
+function cpShowResult() {
+  document.getElementById('cp-step-5').classList.add('hidden');
+  document.getElementById('cp-step-bar').style.width='100%';
+  document.getElementById('cp-result').classList.remove('hidden');
+  const fails = cpResults.filter(v=>v===false).length;
+  const rb = document.getElementById('cp-result-box');
+  const adv = document.getElementById('cp-advice');
+  if (fails===0) {
+    rb.style.cssText='background:var(--green-pale);border:2px solid var(--green-mid);border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.2rem;';
+    rb.innerHTML='<div style="font-size:2rem;margin-bottom:.4rem">✓</div><div style="font-family:Noto Serif JP,serif;font-size:1.1rem;font-weight:700;color:var(--green)">5項目すべてクリア！</div><div style="font-size:.82rem;color:var(--mid);margin-top:.3rem">運動器の発達は良好です</div>';
+    adv.innerHTML='<div style="background:var(--green-pale);border-radius:8px;padding:1.2rem 1.5rem;"><p style="font-size:.82rem;color:var(--mid);line-height:1.8">外遊びや運動習慣を続けて、この状態を維持しましょう。定期的なチェックもお勧めします。</p></div>';
+  } else {
+    rb.style.cssText='background:var(--orange-pale);border:2px solid #f09040;border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.2rem;';
+    rb.innerHTML=`<div style="font-size:2rem;margin-bottom:.4rem">!</div><div style="font-family:Noto Serif JP,serif;font-size:1.1rem;font-weight:700;color:var(--orange)">${fails}項目に気になるサインがあります</div><div style="font-size:.82rem;color:var(--mid);margin-top:.3rem">すぐに病気というわけではありません</div>`;
+    adv.innerHTML='<div style="background:var(--orange-pale);border-radius:8px;padding:1.2rem 1.5rem;"><p style="font-size:.82rem;color:var(--mid);line-height:1.9">運動不足や柔軟性の低下が考えられます。日常生活に<b>「ロコトレ（片脚立ちやスクワットなど）」</b>や外遊びを取り入れ、1〜2ヶ月後に再チェックすることをお勧めします。</p></div>';
+  }
+  window.scrollTo(0,0);
+}
+function cpStepReset() {
+  cpResults=[null,null,null,null,null];
+  for(let i=1;i<=5;i++){
+    const s=document.getElementById('cp-step-'+i);
+    if(s){
+      s.classList.toggle('hidden',i!==1);
+      s.querySelectorAll('button').forEach(b=>{
+        if(b.id&&b.id.startsWith('cp-next-')){b.disabled=true;b.style.cssText='background:#ccc;color:#999;border:none;width:100%;padding:0.9rem;border-radius:6px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:block;';}
+        else{const isOk=b.textContent.includes('できた');b.style.background='white';b.style.color=isOk?'var(--green)':'#c05000';b.style.borderColor=isOk?'var(--green)':'#f09040';}
+      });
+    }
+  }
+  document.getElementById('cp-result').classList.add('hidden');
+  document.getElementById('cp-step-bar').style.width='20%';
+  document.getElementById('cp-progress-txt').textContent='1 / 5';
+}
+
+// ── 学校向け シンプルスクリーニング ──
+let tsAnswers=[null,null,null,null,null];
+let tsRecords=[];
+let tsCurrent=1;
+
+function cback() {
+  // 子どもロコモの対象選択に戻る
+  document.getElementById('csel').classList.remove('hidden');
+  document.getElementById('c-parent').classList.add('hidden');
+  document.getElementById('c-teacher').classList.add('hidden');
+  document.getElementById('cnext').disabled = true;
+  document.querySelectorAll('input[name="cc"]').forEach(r => r.checked = false);
+  document.querySelectorAll('.ri').forEach(r => r.classList.remove('on'));
+  ccat = null;
+  cpStepReset();
+}
+
+function tsInit(){
+  tsAnswers=[null,null,null,null,null]; tsRecords=[]; tsCurrent=1;
+  document.getElementById('ts-num').textContent=1;
+  document.getElementById('ts-test-num').textContent=1;
+  document.getElementById('ts-result').classList.add('hidden');
+  document.getElementById('ts-main').classList.remove('hidden');
+  tsGo(1);
+  document.querySelectorAll('.ts-ok,.ts-ng').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ts-next').forEach(b=>b.disabled=true);
+}
+function tsAns(q,pass,btn){
+  tsAnswers[q-1]=pass;
+  const row=btn.parentElement;
+  row.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const nb=document.getElementById('ts-n'+q);
+  nb.disabled=false;
+}
+function tsGo(q){
+  for(let i=1;i<=5;i++) document.getElementById('ts-q'+i).classList.toggle('hidden',i!==q);
+  document.getElementById('ts-test-num').textContent=q;
+  window.scrollTo(0,0);
+}
+function tsNextPerson(){
+  tsRecords.push({answers:[...tsAnswers]});
+  tsCurrent++;
+  tsAnswers=[null,null,null,null,null];
+  document.getElementById('ts-num').textContent=tsCurrent;
+  document.querySelectorAll('.ts-ok,.ts-ng').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ts-next').forEach(b=>b.disabled=true);
+  tsGo(1);
+}
+function tsResult(){
+  if(tsAnswers.some(v=>v!==null)) tsRecords.push({answers:[...tsAnswers]});
+  const total=tsRecords.length;
+  if(total===0){alert('記録がありません');return;}
+  const names=['片脚立ち','しゃがみ込み','直立体前屈','腕上げ','グーパー'];
+  const fails=names.map((_,i)=>tsRecords.filter(r=>r.answers[i]===false).length);
+  const warnAny=tsRecords.filter(r=>r.answers.some(v=>v===false)).length;
+  const pct=Math.round(warnAny/total*100);
+  document.getElementById('ts-main').classList.add('hidden');
+  document.getElementById('ts-result').classList.remove('hidden');
+  document.getElementById('ts-result-box').innerHTML=`
+    <div style="font-size:.72rem;letter-spacing:.1em;color:var(--blue);margin-bottom:.4rem">スクリーニング集計結果</div>
+    <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:700;color:var(--blue)">${total}人 記録完了</div>
+    <div style="font-size:.95rem;color:var(--blue);margin:.3rem 0">${warnAny}人（${pct}%）に要注意サインあり</div>`;
+  document.getElementById('ts-result-detail').innerHTML=
+    '<div style="font-size:.82rem;font-weight:700;color:var(--charcoal);margin-bottom:.6rem">テスト別　要注意人数</div>'+
+    names.map((n,i)=>`
+      <div style="display:flex;align-items:center;gap:.7rem;padding:.4rem 0;border-bottom:1px solid #eee;">
+        <div style="font-size:.82rem;color:var(--charcoal);flex:1">${n}</div>
+        <div style="font-size:.82rem;font-weight:700;color:${fails[i]>0?'var(--orange)':'var(--green)'}">${fails[i]}人</div>
+        <div style="width:80px;background:#eee;border-radius:3px;height:6px;overflow:hidden;">
+          <div style="height:100%;background:${fails[i]>0?'var(--orange)':'var(--green)'};border-radius:3px;width:${Math.round(fails[i]/total*100)}%"></div>
+        </div>
+      </div>`).join('')+
+    '<p style="font-size:.75rem;color:var(--mid);margin-top:.8rem">※ 要注意サインが複数の生徒は個別に専門家への相談をお勧めします。</p>';
+  window.scrollTo(0,0);
+}
+function tsReset(){tsInit();}
+
+</script>
