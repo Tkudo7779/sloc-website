@@ -13,10 +13,8 @@
     --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
   body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); min-height:100vh; display:flex; flex-direction:column; }
 
-  /* Nav - same as index.html */
   nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
   .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
   .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
@@ -24,62 +22,49 @@
   .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
   .nav-back:hover { color:var(--green); }
 
-  /* Header */
   .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
   .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
-  .page-header::after { content:''; position:absolute; bottom:-60px; left:-60px; width:240px; height:240px; border-radius:50%; border:1px solid rgba(255,255,255,0.06); }
   .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
   .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
 
-  /* Auth Section */
-  .auth-section { padding:3rem 5rem; background:white; border-bottom:1px solid rgba(26,107,74,0.08); }
+  .auth-section { padding:2rem 5rem; background:white; border-bottom:1px solid rgba(26,107,74,0.08); }
   .auth-inner { max-width:600px; margin:0 auto; text-align:center; }
-  .auth-notice { display:inline-flex; align-items:center; gap:0.5rem; background:var(--green-pale); color:var(--green); padding:0.5rem 1.2rem; border-radius:2px; font-size:0.78rem; letter-spacing:0.05em; }
-  .auth-notice .lock-icon { font-size:1rem; }
+  .auth-notice { display:inline-flex; align-items:center; gap:0.5rem; background:var(--green-pale); color:var(--green); padding:0.5rem 1.2rem; border-radius:2px; font-size:0.78rem; }
 
-  /* Folder Grid */
-  .folders-section { padding:4rem 5rem; flex:1; }
-  .folders-section .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
-  .folders-section .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2.5rem; }
+  .folders-section { padding:4rem 5rem; flex:1; background:var(--green-pale); }
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2.5rem; }
 
   .folder-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; max-width:960px; }
 
-  .folder-card { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:2rem; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden; text-decoration:none; color:inherit; display:block; }
+  .folder-card { background:var(--white); border:1.5px solid rgba(26,107,74,0.15); border-radius:4px; padding:2rem; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden; text-decoration:none; color:inherit; display:block; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
   .folder-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--green); transform:scaleX(0); transition:transform 0.3s; }
   .folder-card:hover::before { transform:scaleX(1); }
-  .folder-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(26,107,74,0.1); }
+  .folder-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(26,107,74,0.15); }
 
   .folder-icon { font-size:2rem; margin-bottom:1rem; }
   .folder-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:700; color:var(--charcoal); margin-bottom:0.5rem; }
   .folder-desc { font-size:0.78rem; color:var(--mid); line-height:1.7; }
-  .folder-badge { position:absolute; top:1rem; right:1rem; background:var(--green-pale); color:var(--green); font-size:0.6rem; padding:0.15rem 0.4rem; border-radius:2px; letter-spacing:0.05em; }
+  .folder-badge { position:absolute; top:1rem; right:1rem; background:var(--green-pale); color:var(--green); font-size:0.6rem; padding:0.15rem 0.4rem; border-radius:2px; }
   .folder-arrow { position:absolute; bottom:1.2rem; right:1.2rem; font-size:1rem; color:var(--green-mid); transition:transform 0.2s, color 0.2s; }
   .folder-card:hover .folder-arrow { transform:translate(3px,-3px); color:var(--green); }
 
-  /* Notice */
   .notice-section { padding:2rem 5rem 4rem; }
   .notice-box { max-width:960px; background:var(--green-pale); border-left:3px solid var(--green); padding:1.2rem 1.5rem; border-radius:0 4px 4px 0; }
   .notice-box p { font-size:0.82rem; color:var(--mid); line-height:1.8; }
 
-  /* Footer */
   footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
   footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
 
-  /* Responsive */
   @media (max-width:768px) {
     nav { padding:0 1.5rem; }
     .page-header { padding:7rem 1.5rem 3rem; }
-    .page-header h1 { font-size:1.5rem; }
     .auth-section { padding:2rem 1.5rem; }
     .folders-section { padding:3rem 1.5rem; }
     .folder-grid { grid-template-columns:1fr; }
     .notice-section { padding:1.5rem; }
     footer { padding:2rem 1.5rem; }
   }
-
-  /* Fade-in animation */
-  .fade-up { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
-  .fade-up.visible { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body>
@@ -99,20 +84,17 @@
 
 <div class="auth-section">
   <div class="auth-inner">
-    <div class="auth-notice">
-      <span class="lock-icon">🔒</span>
-      各フォルダの閲覧にはパスワードが必要です
-    </div>
+    <div class="auth-notice">🔒 各フォルダの閲覧にはパスワードが必要です</div>
   </div>
 </div>
 
 <div class="folders-section">
-  <div class="section-label fade-up">Members Only</div>
-  <div class="section-title fade-up">資料・情報</div>
+  <div class="section-label">Members Only</div>
+  <div class="section-title">資料・情報</div>
 
   <div class="folder-grid">
 
-    <a href="https://www.dropbox.com/scl/fo/yv9v9umoa4rzzov1yz2kc/AEhn2onfsFP6GOgo6jBo22s?rlkey=gzs8yto5fnmohboz9dzzksaev&st=8jfhso7v&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/yv9v9umoa4rzzov1yz2kc/AEhn2onfsFP6GOgo6jBo22s?rlkey=gzs8yto5fnmohboz9dzzksaev&st=8jfhso7v&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">📋</div>
       <div class="folder-badge">理事限定</div>
       <div class="folder-name">理事会資料</div>
@@ -120,14 +102,14 @@
       <span class="folder-arrow">↗</span>
     </a>
 
-    <a href="https://www.dropbox.com/scl/fo/uhgoua3oo96wz87hfgurr/AC2oZMI4G_xq_rSZw8MSWEU?rlkey=nuy6kzaw4sqj19zdu04eyydw7&st=3qmvnmp7&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/uhgoua3oo96wz87hfgurr/AC2oZMI4G_xq_rSZw8MSWEU?rlkey=nuy6kzaw4sqj19zdu04eyydw7&st=3qmvnmp7&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">📰</div>
       <div class="folder-name">SLOC通信</div>
       <div class="folder-desc">月次ニュースレター・バックナンバー</div>
       <span class="folder-arrow">↗</span>
     </a>
 
-    <a href="https://www.dropbox.com/scl/fo/fax68ukwllrc0l4i4ktfd/APO23rAxJUwTutKp0YzTOlA?rlkey=utfqns1ba0orjhw0pii8er867&st=5z6ckhe6&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/fax68ukwllrc0l4i4ktfd/APO23rAxJUwTutKp0YzTOlA?rlkey=utfqns1ba0orjhw0pii8er867&st=5z6ckhe6&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">👥</div>
       <div class="folder-badge">理事限定</div>
       <div class="folder-name">名簿一覧</div>
@@ -135,21 +117,21 @@
       <span class="folder-arrow">↗</span>
     </a>
 
-    <a href="https://www.dropbox.com/scl/fo/rgcam8awvqojtihgopn9x/AGcjyCCMDOHT1lD9TcH3e5o?rlkey=y51l7h4ph72dgwnvjq0hkv9k7&st=6tagw9d0&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/rgcam8awvqojtihgopn9x/AGcjyCCMDOHT1lD9TcH3e5o?rlkey=y51l7h4ph72dgwnvjq0hkv9k7&st=6tagw9d0&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">🎓</div>
       <div class="folder-name">LC資格・研修会</div>
       <div class="folder-desc">資格取得研修会資料・修了試験結果</div>
       <span class="folder-arrow">↗</span>
     </a>
 
-    <a href="https://www.dropbox.com/scl/fo/38jo4xe5ff5n6awhx4ong/ADC9Zt1w0-5wKWkfit9_ZsY?rlkey=5xqvjj4hvzyxl5ehwznalby9h&st=ydtzat49&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/38jo4xe5ff5n6awhx4ong/ADC9Zt1w0-5wKWkfit9_ZsY?rlkey=5xqvjj4hvzyxl5ehwznalby9h&st=ydtzat49&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">📊</div>
       <div class="folder-name">スライド・動画</div>
       <div class="folder-desc">講演用スライド・ロコトレ動画・教材</div>
       <span class="folder-arrow">↗</span>
     </a>
 
-    <a href="https://www.dropbox.com/scl/fo/dap203d7x9pf327dhcu8j/AMS5ff-_k9NIhxEgyGFpE7U?rlkey=owxqmk533vn3hk5blckay9h9q&st=pugdou59&dl=0" class="folder-card fade-up" target="_blank" rel="noopener">
+    <a href="https://www.dropbox.com/scl/fo/dap203d7x9pf327dhcu8j/AMS5ff-_k9NIhxEgyGFpE7U?rlkey=owxqmk533vn3hk5blckay9h9q&st=pugdou59&dl=0" class="folder-card" target="_blank" rel="noopener">
       <div class="folder-icon">📝</div>
       <div class="folder-name">定款・規則・報告書</div>
       <div class="folder-desc">定款・規則集・事業計画報告書・活動予算計算書</div>
@@ -160,11 +142,11 @@
 </div>
 
 <div class="notice-section">
-  <div class="notice-box fade-up">
+  <div class="notice-box">
     <p>
       ※ 各フォルダはDropboxの共有リンクです。初回アクセス時にパスワードの入力を求められます。<br>
       ※ パスワードは事務局より配布された共通パスワードをご使用ください。<br>
-      ※ お問い合わせ：SLOC事務局 TEL 03-3839-5363 ／ Mail <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ede4e4ebe1e7c2e8e1ede3acf1e3e9f7f0e3acece7ace8f2">[email&#160;protected]</a>
+      ※ お問い合わせ：SLOC事務局 TEL 03-3839-5363
     </p>
   </div>
 </div>
@@ -174,5 +156,5 @@
   <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const observer = new IntersectionObser
+</body>
+</html>
