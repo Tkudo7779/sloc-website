@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SLOCについて | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .content-section { padding:4rem 5rem; max-width:960px; margin:0 auto; }
+  .content-section + .content-section { padding-top:0; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* Overview */
+  .overview-section { padding:4rem 5rem; background:white; }
+  .overview-inner { max-width:960px; margin:0 auto; }
+  .overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2rem; }
+  .overview-card { background:var(--green-pale); border-radius:4px; padding:1.5rem; }
+  .overview-card dt { font-size:0.72rem; color:var(--green); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.3rem; }
+  .overview-card dd { font-size:0.95rem; font-weight:500; color:var(--charcoal); }
+
+  /* Greeting */
+  .greeting-section { padding:4rem 5rem; background:var(--cream); }
+  .greeting-inner { max-width:960px; margin:0 auto; }
+  .greeting-box { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:3rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .greeting-text { font-size:0.9rem; line-height:2; color:var(--mid); margin-bottom:2rem; }
+  .greeting-sign { text-align:right; font-size:0.88rem; color:var(--charcoal); }
+  .greeting-sign .name { font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:700; }
+
+  /* Officers */
+  .officers-section { padding:4rem 5rem; background:white; }
+  .officers-inner { max-width:960px; margin:0 auto; }
+  .officer-group { margin-bottom:2.5rem; }
+  .officer-group-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); padding-bottom:0.5rem; border-bottom:2px solid var(--green); margin-bottom:1rem; display:inline-block; }
+  .officer-president { background:var(--green-pale); border-radius:4px; padding:1.5rem 2rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem; }
+  .officer-president-icon { width:48px; height:48px; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+  .officer-president-name { font-family:'Noto Serif JP',serif; font-size:1.15rem; font-weight:700; color:var(--charcoal); }
+  .officer-president-title { font-size:0.78rem; color:var(--green); }
+  .officer-president-org { font-size:0.78rem; color:var(--mid); margin-top:0.2rem; }
+
+  .officer-list { display:grid; grid-template-columns:repeat(3, 1fr); gap:0.8rem; }
+  .officer-item { background:var(--cream); border-radius:4px; padding:0.8rem 1rem; font-size:0.88rem; color:var(--charcoal); }
+  .officer-item .role { font-size:0.65rem; color:var(--green); display:block; margin-bottom:0.15rem; }
+
+  /* Pillars */
+  .pillars-section { padding:4rem 5rem; background:var(--cream); }
+  .pillars-inner { max-width:960px; margin:0 auto; }
+  .pillars-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .pillar-card { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:2rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .pillar-num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--green-mid); margin-bottom:0.5rem; }
+  .pillar-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; line-height:1.5; }
+  .pillar-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; }
+
+  /* History */
+  .history-section { padding:4rem 5rem; background:white; }
+  .history-inner { max-width:960px; margin:0 auto; }
+  .history-item { display:grid; grid-template-columns:120px 1fr; gap:1.5rem; padding:1.2rem 0; border-bottom:1px solid rgba(26,107,74,0.08); }
+  .history-year { font-family:'Space Mono',monospace; font-size:0.82rem; color:var(--green); padding-top:2px; }
+  .history-text { font-size:0.88rem; color:var(--charcoal); line-height:1.7; }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .overview-section, .greeting-section, .officers-section, .pillars-section, .history-section { padding:3rem 1.5rem; }
+    .overview-grid { grid-template-columns:1fr; }
+    .officer-list { grid-template-columns:1fr 1fr; }
+    .pillars-grid { grid-template-columns:1fr; }
+    .history-item { grid-template-columns:90px 1fr; gap:1rem; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>SLOCについて</h1>
+  <p>認定NPO法人 全国ストップ・ザ・ロコモ協議会</p>
+</div>
+
+<!-- OVERVIEW -->
+<div class="overview-section">
+  <div class="overview-inner">
+    <div class="section-label">About SLOC</div>
+    <div class="section-title">法人概要</div>
+    <p style="font-size:0.9rem; line-height:2; color:var(--mid); max-width:720px;">
+      SLOCとは、NPO法人 全国ストップ・ザ・ロコモ協議会（Japan Stop the Locomo Council）の略称です。ロコモティブシンドローム（ロコモ）を予防して健康寿命を延ばすことを目的に、ロコモ対策の重要性を広く国民の皆様に啓発するため2013年1月15日に設立されたNPO法人です。2019年1月7日付で東京都より「認定NPO法人」の認定を受けました。
+    </p>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <dt>正式名称</dt>
+        <dd>認定NPO法人 全国ストップ・ザ・ロコモ協議会</dd>
+      </div>
+      <div class="overview-card">
+        <dt>英語名</dt>
+        <dd>Japan Stop the Locomo Council（SLOC）</dd>
+      </div>
+      <div class="overview-card">
+        <dt>設立</dt>
+        <dd>2013年1月15日（東京都認可）</dd>
+      </div>
+      <div class="overview-card">
+        <dt>認定NPO法人</dt>
+        <dd>2019年1月7日（東京都認定）</dd>
+      </div>
+      <div class="overview-card">
+        <dt>所在地</dt>
+        <dd>〒110-0016 東京都台東区台東4-26-8 御徒町台東ビル6階</dd>
+      </div>
+      <div class="overview-card">
+        <dt>連絡先</dt>
+        <dd>TEL 03-3839-5363</dd>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GREETING -->
+<div class="greeting-section">
+  <div class="greeting-inner">
+    <div class="section-label">Message</div>
+    <div class="section-title">理事長挨拶</div>
+    <div class="greeting-box">
+      <p class="greeting-text">
+        全国ストップ・ザ・ロコモ協議会（SLOC）は、ロコモティブシンドローム（略してロコモ）を予防して健康寿命を延ばすことを目的に、2013年に設立されたNPO法人です。
+      </p>
+      <p class="greeting-text">
+        SLOCの役割は、足腰の衰えにより放置すると要介護状態となるロコモを防ぎ、いくつになっても健康で活き活きとした生活を送れるよう、ロコモ対策を広く国民の皆様に知っていただくことです。
+      </p>
+      <p class="greeting-text">
+        一方、老化により心身の機能が低下した状態がフレイルと呼ばれ、後期高齢者医療においてロコモとともに、フレイル対策が重要な施策になっております。ロコモは運動機能低下をきたす身体的フレイルにあたりますが、子どもを含めた全年齢層を対象としているのが特徴です。
+      </p>
+      <p class="greeting-text">
+        全国の教育委員会や自治体と連携し、広く住民に広報活動、ロコモ対策のためのロコトレ指導などを実践してまいります。また、各種報道機関とも連携し、正しいロコモ対策に対する啓発活動を行ってまいります。
+      </p>
+      <p class="greeting-text" style="margin-bottom:0;">
+        一人でも多くの国民にロコモを理解していただき、健康で健やかな長寿を全うできますよう心より祈念いたします。
+      </p>
+      <div class="greeting-sign">
+        <p style="font-size:0.78rem; color:var(--mid); margin-bottom:0.3rem;">認定NPO法人 全国ストップ・ザ・ロコモ協議会</p>
+        <p><span style="font-size:0.78rem; color:var(--mid);">理事長</span> <span class="name">林 承弘</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFICERS -->
+<div class="officers-section">
+  <div class="officers-inner">
+    <div class="section-label">Officers</div>
+    <div class="section-title">令和7・8年度 役員一覧</div>
+
+    <!-- 理事長 -->
+    <div class="officer-group">
+      <div class="officer-president">
+        <div class="officer-president-icon">👨‍⚕️</div>
+        <div>
+          <div class="officer-president-title">理事長</div>
+          <div class="officer-president-name">林 承弘</div>
+          <div class="officer-president-org">林整形外科</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 副理事長 -->
+    <div class="officer-group">
+      <div class="officer-group-title">副理事長</div>
+      <div class="officer-list">
+        <div class="officer-item">二階堂 元重<br><span style="font-size:0.72rem;color:var(--mid);">医療法人二階堂医院</span></div>
+        <div class="officer-item">原田 昭<br><span style="font-size:0.72rem;color:var(--mid);">医療法人昭和原田整形外科病院</span></div>
+        <div class="officer-item">長谷川 利雄<br><span style="font-size:0.72rem;color:var(--mid);">長谷川整形外科医院</span></div>
+        <div class="officer-item">宮田 重樹<br><span style="font-size:0.72rem;color:var(--mid);">医療法人誠樹会宮田医院（総務委員長）</span></div>
+      </div>
+    </div>
+
+    <!-- 理事 -->
+    <div class="officer-group">
+      <div class="officer-group-title">理事</div>
+      <div class="officer-list">
+        <div class="officer-item">新井 貞男</div>
+        <div class="officer-item">飯尾 純</div>
+        <div class="officer-item">石井 光一</div>
+        <div class="officer-item">奥村 栄次郎</div>
+        <div class="officer-item">河村 英徳</div>
+        <div class="officer-item">木島 秀人</div>
+        <div class="officer-item">工藤 太郎</div>
+        <div class="officer-item">五味渕 聡志</div>
+        <div class="officer-item">神藤 佳孝</div>
+        <div class="officer-item">田中 洋次郎</div>
+        <div class="officer-item">田辺 秀樹</div>
+        <div class="officer-item">照屋 徹</div>
+        <div class="officer-item">那須 耀夫</div>
+        <div class="officer-item">新渡戸 剛</div>
+        <div class="officer-item">橋口 兼久</div>
+        <div class="officer-item">平澤 直之</div>
+        <div class="officer-item">藤田 芳憲</div>
+        <div class="officer-item">峯崎 孝俊</div>
+        <div class="officer-item">山崎 生久男</div>
+      </div>
+    </div>
+
+    <!-- 監事 -->
+    <div class="officer-group">
+      <div class="officer-group-title">監事</div>
+      <div class="officer-list">
+        <div class="officer-item">久保谷 康夫</div>
+        <div class="officer-item">小見山 満</div>
+        <div class="officer-item">西山 徹</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THREE PILLARS -->
+<div class="pillars-section">
+  <div class="pillars-inner">
+    <div class="section-label">Mission</div>
+    <div class="section-title">SLOC公益事業 3本柱</div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-num">1</div>
+        <div class="pillar-title">ロコモに関する<br>普及広報事業</div>
+        <div class="pillar-desc">全国市民公開講座（ロコモキャラバン）の開催、ウェブサイトによる啓発、行政への普及活動、講師派遣を実施。これまで18都市で開催。</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">2</div>
+        <div class="pillar-title">ロコモコーディネーター<br>養成事業</div>
+        <div class="pillar-desc">自治体と連携し、現場でのロコモ予防活動を担うロコモコーディネーター（LC）を養成。2026年2月現在、2,793名の資格者が誕生。</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">3</div>
+        <div class="pillar-title">子どもロコモ<br>啓発事業</div>
+        <div class="pillar-desc">子どもの運動器機能不全について調査・報告するとともに、学校保健における運動器検診（平成28年度〜）に対応。スクリーニング体系の検討・推進。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="history-section">
+  <div class="history-inner">
+    <div class="section-label">History</div>
+    <div class="section-title">沿革</div>
+    <div class="history-item">
+      <div class="history-year">2013.01</div>
+      <div class="history-text">NPO法人 全国ストップ・ザ・ロコモ協議会 設立（東京都認可）</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2014</div>
+      <div class="history-text">ロコモキャラバン（全国市民公開講座）開始。第1回は石巻市にて開催</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2016</div>
+      <div class="history-text">学校保健における運動器検診が全国で義務化。SLOCはスクリーニング体系の検討・推進に貢献</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2018</div>
+      <div class="history-text">ウェブサイトを全面刷新。株式会社アクセスクリエイトの協力により様式・コンテンツを一新</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2019.01</div>
+      <div class="history-text">東京都より「認定NPO法人」認定証を受領。税制優遇を通じた寄附活動の基盤を確立</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2024</div>
+      <div class="history-text">ロコモコーディネーター指導下のロコトレによる介護度進行抑止効果を検証した論文が日本運動器科学会誌に掲載</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2025.10</div>
+      <div class="history-text">第18回ロコモキャラバン（金沢市）開催。石川県COA共催で「子どもロコモ」をテーマに市民公開講座を実施</div>
+    </div>
+    <div class="history-item">
+      <div class="history-year">2026.03</div>
+      <div class="history-text">第3回ロコモコーディネーター全国大会を品川プリンスホテルにて開催。ストップ・ザ・ロコモ！アワード受賞作品を発表</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
