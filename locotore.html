@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ロコトレ | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* Basics */
+  .basics-section { padding:4rem 5rem; background:white; }
+  .basics-inner { max-width:960px; margin:0 auto; }
+  .basics-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; }
+  .basic-card { background:var(--green-pale); border-radius:4px; padding:2rem; text-align:center; }
+  .basic-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .basic-name { font-family:'Noto Serif JP',serif; font-size:1.15rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; }
+  .basic-desc { font-size:0.85rem; color:var(--mid); line-height:1.8; text-align:left; }
+  .basic-freq { margin-top:1rem; background:var(--green); color:white; display:inline-block; padding:0.3rem 1rem; border-radius:2px; font-size:0.78rem; }
+
+  /* Principle */
+  .principle-section { padding:4rem 5rem; background:var(--cream); }
+  .principle-inner { max-width:960px; margin:0 auto; }
+  .principle-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .principle-card { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:1.5rem; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .principle-num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--green-mid); margin-bottom:0.5rem; }
+  .principle-title { font-family:'Noto Serif JP',serif; font-size:0.95rem; font-weight:700; color:var(--charcoal); margin-bottom:0.5rem; }
+  .principle-desc { font-size:0.78rem; color:var(--mid); line-height:1.7; }
+
+  /* Videos */
+  .videos-section { padding:4rem 5rem; background:white; }
+  .videos-inner { max-width:960px; margin:0 auto; }
+  .video-group { margin-bottom:3rem; }
+  .video-group:last-child { margin-bottom:0; }
+  .video-group-title { font-family:'Noto Serif JP',serif; font-size:1.15rem; font-weight:700; color:var(--charcoal); margin-bottom:0.3rem; }
+  .video-group-meta { font-size:0.75rem; color:var(--mid); margin-bottom:1rem; }
+  .video-group-desc { font-size:0.85rem; color:var(--mid); line-height:1.8; margin-bottom:1.5rem; }
+  .video-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; }
+  .video-grid.single { grid-template-columns:1fr; max-width:640px; }
+  .video-card { background:var(--cream); border-radius:4px; overflow:hidden; border:1px solid rgba(26,107,74,0.08); }
+  .video-card iframe { width:100%; aspect-ratio:16/9; display:block; border:none; }
+  .video-card .video-info { padding:0.8rem 1rem; }
+  .video-card .video-title { font-size:0.82rem; font-weight:500; color:var(--charcoal); margin-bottom:0.2rem; }
+  .video-card .video-dur { font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--mid); }
+
+  /* Other videos */
+  .other-section { padding:4rem 5rem; background:var(--cream); }
+  .other-inner { max-width:960px; margin:0 auto; }
+  .other-list { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1.5rem; }
+  .other-item { background:white; border:1px solid rgba(26,107,74,0.08); border-radius:4px; padding:1.2rem 1.5rem; display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:inherit; transition:all 0.2s; }
+  .other-item:hover { transform:translateX(4px); border-color:var(--green-mid); }
+  .other-item-title { font-size:0.88rem; color:var(--charcoal); }
+  .other-item-meta { font-size:0.72rem; color:var(--mid); }
+  .other-item-arrow { color:var(--green-mid); font-size:1rem; }
+
+  /* CTA */
+  .cta-section { padding:4rem 5rem; background:var(--green); text-align:center; }
+  .cta-inner { max-width:600px; margin:0 auto; }
+  .cta-section h2 { font-family:'Noto Serif JP',serif; font-size:1.3rem; color:white; margin-bottom:1rem; }
+  .cta-section p { font-size:0.85rem; color:rgba(255,255,255,0.7); margin-bottom:2rem; }
+  .cta-btn { display:inline-block; background:white; color:var(--green); padding:0.85rem 2.5rem; border-radius:2px; font-family:'Noto Sans JP',sans-serif; font-size:0.88rem; font-weight:500; text-decoration:none; transition:all 0.2s; }
+  .cta-btn:hover { background:var(--green-pale); transform:translateY(-2px); }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .basics-section, .principle-section, .videos-section, .other-section, .cta-section { padding:3rem 1.5rem; }
+    .basics-grid { grid-template-columns:1fr; }
+    .principle-grid { grid-template-columns:1fr; }
+    .video-grid { grid-template-columns:1fr; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>ロコトレ</h1>
+  <p>片脚立ち・スクワットで今日から始めるロコモ予防</p>
+</div>
+
+<!-- BASICS -->
+<div class="basics-section">
+  <div class="basics-inner">
+    <div class="section-label">Loco-Training</div>
+    <div class="section-title">ロコトレの基本</div>
+    <p style="font-size:0.9rem; line-height:1.8; color:var(--mid); margin-bottom:1.5rem;">
+      ロコトレ（ロコモーショントレーニング）は、膝や腰への負担が軽く、どこででもできる極めてシンプルで安全、かつ医学的根拠にもとづいたトレーニング法です。基本は2種類だけ。
+    </p>
+    <div class="basics-grid">
+      <div class="basic-card">
+        <div class="basic-icon">🦶</div>
+        <div class="basic-name">片脚立ち</div>
+        <div class="basic-desc">バランス能力を維持・確保するためのトレーニング。壁や机に手をつき、片脚を5cm程度上げるだけ。足腰の筋力だけでなく、軸足の大腿骨の骨密度も増やすことが医学的に証明されています。</div>
+        <div class="basic-freq">左右1分ずつ・1日3回</div>
+      </div>
+      <div class="basic-card">
+        <div class="basic-icon">🏋️</div>
+        <div class="basic-name">スクワット</div>
+        <div class="basic-desc">体幹や脚の筋力を強化するためのトレーニング。洋式便座に腰を落とす感じで、上半身を前傾させながらゆっくり座ります。膝がつま先より前に出ないことが大切です。</div>
+        <div class="basic-freq">5〜6回・1日3回</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3 PRINCIPLES -->
+<div class="principle-section">
+  <div class="principle-inner">
+    <div class="section-label">3 Principles</div>
+    <div class="section-title">ロコモ3原則</div>
+    <div class="principle-grid">
+      <div class="principle-card">
+        <div class="principle-num">1</div>
+        <div class="principle-title">早期に気づく</div>
+        <div class="principle-desc">自らの運動器の衰えに早く気づくことが第一歩。片脚立ち20秒でヨロヨロするようならロコモの可能性があります。</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-num">2</div>
+        <div class="principle-title">継続する</div>
+        <div class="principle-desc">ロコトレは毎日続けることが大切。片脚立ちとスクワットの2種類だけなので、日常生活の中で無理なく続けられます。</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-num">3</div>
+        <div class="principle-title">組み合わせる</div>
+        <div class="principle-desc">有酸素運動（ウォーキング等）と低強度の筋力トレーニング（ロコトレ）を組み合わせることで、ロコモと認知症の両方を予防します。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN VIDEOS -->
+<div class="videos-section">
+  <div class="videos-inner">
+    <div class="section-label">Videos</div>
+    <div class="section-title">ロコトレ動画</div>
+
+    <!-- ロコモ度別 -->
+    <div class="video-group">
+      <div class="video-group-title">ロコモ度別ロコトレ指導動画</div>
+      <div class="video-group-meta">監修：宮田重樹 SLOC副理事長 ／ 2024年</div>
+      <div class="video-group-desc">膝痛・腰痛の方でもできるロコトレ、さらにロコモ度1〜3対応型のロコトレ計5種類の指導動画です。</div>
+      <div class="video-grid">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/1gK0zj71ras" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <div class="video-title">膝痛の方向けロコトレ</div>
+            <div class="video-dur">07:46</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/yRxNtyJxhws" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <div class="video-title">腰痛の方向けロコトレ</div>
+            <div class="video-dur">07:52</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/WOv24_KZUBw" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <div class="video-title">ロコモ度1対応型ロコトレ</div>
+            <div class="video-dur">07:34</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/spHkxbz9Iyg" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <div class="video-title">ロコモ度2対応型ロコトレ</div>
+            <div class="video-dur">07:45</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ロコモ度3 -->
+    <div class="video-group">
+      <div class="video-group-title">ロコモ度3の方向けロコトレ</div>
+      <div class="video-group-meta">監修：宮田重樹 SLOC副理事長</div>
+      <div class="video-grid single">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/_PoLFgtk27c" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <div class="video-title">ロコモ度3対応型ロコトレ</div>
+            <div class="video-dur">07:43</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OTHER VIDEOS -->
+<div class="other-section">
+  <div class="other-inner">
+    <div class="section-label">More Videos</div>
+    <div class="section-title">その他のロコトレ関連動画</div>
+    <div class="other-list">
+      <a href="https://www.gerontology.life/" class="other-item" target="_blank" rel="noopener">
+        <div>
+          <div class="other-item-title">SAM（TRF）監修 ジェロントロジー専用サイト</div>
+          <div class="other-item-meta">おうちで簡単・免疫力アップストレッチ</div>
+        </div>
+        <span class="other-item-arrow">↗</span>
+      </a>
+      <a href="https://youtu.be/1gK0zj71ras" class="other-item" target="_blank" rel="noopener">
+        <div>
+          <div class="other-item-title">岩手からロコモをなくそう！高橋佳代子の毎日楽しくロコトレ運動</div>
+          <div class="other-item-meta">岩手県臨床整形外科医会 ／ テレビ岩手制作 ・ 03:26</div>
+        </div>
+        <span class="other-item-arrow">↗</span>
+      </a>
+      <a href="locomo.html" class="other-item">
+        <div>
+          <div class="other-item-title">ロコモと認知症の深い関係〜"withコロナ時代"のリスクと対策〜</div>
+          <div class="other-item-meta">2020年10月 ロコモキャラバン新潟市 ／ 新潟リハビリテーション病院</div>
+        </div>
+        <span class="other-item-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>まずは自分のロコモ度を確認しませんか？</h2>
+    <p>簡易セルフチェックなら道具不要・1分で完了。</p>
+    <a href="locomo-check.html" class="cta-btn">ロコモチェックへ →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
