@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ロコモとは | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* Key points */
+  .keypoints-section { padding:4rem 5rem; background:white; }
+  .keypoints-inner { max-width:960px; margin:0 auto; }
+  .keypoints-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .keypoint-card { background:var(--green-pale); border-radius:4px; padding:1.5rem; display:flex; gap:1rem; align-items:flex-start; }
+  .keypoint-icon { font-size:1.5rem; flex-shrink:0; margin-top:0.2rem; }
+  .keypoint-text { font-size:0.9rem; line-height:1.8; color:var(--charcoal); }
+  .keypoint-text strong { color:var(--green); }
+
+  /* Explanation */
+  .explain-section { padding:4rem 5rem; background:var(--cream); }
+  .explain-inner { max-width:960px; margin:0 auto; }
+  .explain-block { margin-bottom:3rem; }
+  .explain-block:last-child { margin-bottom:0; }
+  .explain-subtitle { font-family:'Noto Serif JP',serif; font-size:1.15rem; font-weight:700; color:var(--charcoal); margin-bottom:1rem; padding-left:0.8rem; border-left:3px solid var(--green); }
+  .explain-text { font-size:0.9rem; line-height:2; color:var(--mid); margin-bottom:1rem; }
+
+  /* Chain */
+  .chain-section { padding:4rem 5rem; background:var(--charcoal); color:white; }
+  .chain-inner { max-width:960px; margin:0 auto; }
+  .chain-section .section-label { color:var(--green-mid); }
+  .chain-section .section-title { color:white; }
+  .chain-flow { display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap; margin-top:2rem; }
+  .chain-item { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:1.2rem 1.5rem; text-align:center; min-width:140px; }
+  .chain-item .label { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--green-mid); margin-bottom:0.3rem; }
+  .chain-item .desc { font-size:0.72rem; color:rgba(255,255,255,0.6); }
+  .chain-arrow { font-size:1.5rem; color:var(--accent); }
+  .chain-note { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.8; margin-top:2rem; text-align:center; }
+
+  /* Locomo Test */
+  .test-section { padding:4rem 5rem; background:white; }
+  .test-inner { max-width:960px; margin:0 auto; }
+  .test-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .test-card { background:var(--cream); border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:2rem; text-align:center; }
+  .test-num { font-family:'DM Serif Display',serif; font-size:2.5rem; color:var(--green); margin-bottom:0.5rem; }
+  .test-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; }
+  .test-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; text-align:left; }
+
+  /* Locomo Degree */
+  .degree-section { padding:4rem 5rem; background:var(--cream); }
+  .degree-inner { max-width:960px; margin:0 auto; }
+  .degree-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .degree-card { border-radius:4px; padding:2rem; text-align:center; }
+  .degree-card.d1 { background:var(--green-pale); border:2px solid var(--green-mid); }
+  .degree-card.d2 { background:#fff3e6; border:2px solid var(--accent); }
+  .degree-card.d3 { background:#fde8e8; border:2px solid #c0392b; }
+  .degree-label { font-family:'DM Serif Display',serif; font-size:1.8rem; margin-bottom:0.5rem; }
+  .degree-card.d1 .degree-label { color:var(--green); }
+  .degree-card.d2 .degree-label { color:var(--accent); }
+  .degree-card.d3 .degree-label { color:#c0392b; }
+  .degree-title { font-family:'Noto Serif JP',serif; font-size:0.95rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; }
+  .degree-desc { font-size:0.78rem; color:var(--mid); line-height:1.7; text-align:left; }
+
+  /* Frail */
+  .frail-section { padding:4rem 5rem; background:white; }
+  .frail-inner { max-width:960px; margin:0 auto; }
+  .frail-box { background:var(--green-pale); border-radius:4px; padding:2.5rem; margin-top:1.5rem; }
+  .frail-text { font-size:0.9rem; line-height:2; color:var(--mid); margin-bottom:1rem; }
+  .frail-text:last-child { margin-bottom:0; }
+
+  /* CTA */
+  .cta-section { padding:4rem 5rem; background:var(--green); text-align:center; }
+  .cta-inner { max-width:600px; margin:0 auto; }
+  .cta-section h2 { font-family:'Noto Serif JP',serif; font-size:1.5rem; color:white; margin-bottom:1rem; }
+  .cta-section p { font-size:0.88rem; color:rgba(255,255,255,0.7); margin-bottom:2rem; }
+  .cta-btn { display:inline-block; background:white; color:var(--green); padding:0.85rem 2.5rem; border-radius:2px; font-family:'Noto Sans JP',sans-serif; font-size:0.88rem; font-weight:500; text-decoration:none; transition:all 0.2s; }
+  .cta-btn:hover { background:var(--green-pale); transform:translateY(-2px); }
+
+  /* Stats */
+  .stats-section { padding:4rem 5rem; background:var(--cream); }
+  .stats-inner { max-width:960px; margin:0 auto; }
+  .stats-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .stat-box { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:1.5rem; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .stat-box .num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--green); }
+  .stat-box .unit { font-size:0.9rem; color:var(--green); }
+  .stat-box .label { font-size:0.78rem; color:var(--mid); margin-top:0.3rem; }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .keypoints-section, .explain-section, .chain-section, .test-section, .degree-section, .frail-section, .cta-section, .stats-section { padding:3rem 1.5rem; }
+    .keypoints-grid, .test-grid, .degree-grid, .stats-grid { grid-template-columns:1fr; }
+    .chain-flow { flex-direction:column; }
+    .chain-arrow { transform:rotate(90deg); }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>ロコモとは</h1>
+  <p>ロコモティブシンドローム（運動器症候群）を知る</p>
+</div>
+
+<!-- KEY POINTS -->
+<div class="keypoints-section">
+  <div class="keypoints-inner">
+    <div class="section-label">What is Locomo?</div>
+    <div class="section-title">ロコモティブシンドロームとは</div>
+    <div class="keypoints-grid">
+      <div class="keypoint-card">
+        <div class="keypoint-icon">🦴</div>
+        <div class="keypoint-text"><strong>「ロコモ」</strong>はロコモティブシンドローム（運動器症候群）の略称です。骨・関節・筋肉・神経などの<strong>運動器の障害</strong>により、立つ・歩くなどの移動機能が低下した状態を指します。</div>
+      </div>
+      <div class="keypoint-card">
+        <div class="keypoint-icon">🚶</div>
+        <div class="keypoint-text">放っておくと<strong>要介護・寝たきり</strong>になる可能性があります。高齢化や運動不足による足腰の筋力・バランス力の低下が主な原因です。</div>
+      </div>
+      <div class="keypoint-card">
+        <div class="keypoint-icon">📊</div>
+        <div class="keypoint-text">日本では<strong>約4,700万人</strong>がロコモに該当すると推計されています。日本整形外科学会が2007年に提唱した概念です。</div>
+      </div>
+      <div class="keypoint-card">
+        <div class="keypoint-icon">💪</div>
+        <div class="keypoint-text">運動や食事など<strong>日々の生活習慣によって改善</strong>することができます。「メタボ」は内臓の障害、「ロコモ」は運動器の障害です。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="section-label">Numbers</div>
+    <div class="section-title">数字で見るロコモ</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="num">4,700<span class="unit">万人</span></div>
+        <div class="label">ロコモ該当者推計数（40歳以上）</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">1,100<span class="unit">万人</span></div>
+        <div class="label">骨粗しょう症の推定患者数</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">13<span class="unit">%</span></div>
+        <div class="label">大腿骨骨折後1年以内の死亡率</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEGATIVE CHAIN -->
+<div class="chain-section">
+  <div class="chain-inner">
+    <div class="section-label">Negative Chain</div>
+    <div class="section-title">負の連鎖</div>
+    <div class="chain-flow">
+      <div class="chain-item">
+        <div class="label">ロコモ</div>
+        <div class="desc">運動器の機能低下</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-item">
+        <div class="label">骨粗しょう症</div>
+        <div class="desc">いつのまにか骨折</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-item">
+        <div class="label">転倒・骨折</div>
+        <div class="desc">大腿骨近位部骨折</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-item">
+        <div class="label">認知症</div>
+        <div class="desc">動けない期間が長期化</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-item">
+        <div class="label">要介護</div>
+        <div class="desc">寝たきり</div>
+      </div>
+    </div>
+    <p class="chain-note">ロコモ・骨粗しょう症・認知症は互いに負の連鎖を引き起こし、健康寿命を短くします。<br>いずれも自覚症状がないまま進行することが共通の特徴です。</p>
+  </div>
+</div>
+
+<!-- EXPLANATION -->
+<div class="explain-section">
+  <div class="explain-inner">
+    <div class="section-label">Details</div>
+    <div class="section-title">なぜロコモになるのか</div>
+
+    <div class="explain-block">
+      <div class="explain-subtitle">運動器の機関車</div>
+      <p class="explain-text">人間のからだを機関車（ロコモティブ）に例えると、運動器（骨・関節・筋肉・神経）はエンジンであり車輪です。機関車に不具合が起きると、積まれているすべての内臓臓器などに影響をきたします。「ロコモ予防」は運動器だけの問題ではなく、全身の健康に重要な意義があります。</p>
+    </div>
+
+    <div class="explain-block">
+      <div class="explain-subtitle">バランス能力の低下</div>
+      <p class="explain-text">年齢とともに「つまづきやすくなる」のは、筋力低下だけでなく、立ち上がり時にふらつき転倒しやすいと感じる「バランス能力」の低下が原因です。体の不安定感により、無意識に足を上げない「すり足」になってしまいます。指1本で壁に触れているだけで楽に片脚立ちできるのは、筋力ではなくバランスを保つことができるからです。</p>
+    </div>
+
+    <div class="explain-block">
+      <div class="explain-subtitle">認知機能との関係</div>
+      <p class="explain-text">歩行中に足元の障害物に気づかない、またぐことができるかどうか咄嗟にわからないなど、認知・判断する能力の衰えも転倒リスクを高めます。運動機能と認知機能の両方が低下すると、転倒リスクは相乗的に増大します。「運動プログラム」に「認知プログラム」をうまく組み合わせることが重要です。</p>
+    </div>
+  </div>
+</div>
+
+<!-- LOCOMO TEST -->
+<div class="test-section">
+  <div class="test-inner">
+    <div class="section-label">Locomo Test</div>
+    <div class="section-title">ロコモ度テスト</div>
+    <p style="font-size:0.9rem; line-height:1.8; color:var(--mid); margin-bottom:1.5rem;">ロコモ度テストは3つのテストで構成されます。結果からロコモ度1・2・3の3段階に分類し、運動器の状態を評価します。</p>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-num">1</div>
+        <div class="test-name">立ち上がりテスト</div>
+        <div class="test-desc">異なる高さの台から片脚・両脚で立ち上がれるかを測定。身体を垂直方向へ移動する機能（「立つ」力）を評価します。</div>
+      </div>
+      <div class="test-card">
+        <div class="test-num">2</div>
+        <div class="test-name">2ステップテスト</div>
+        <div class="test-desc">できるだけ大股で2歩歩き、身長で割った値を算出。身体を水平方向に移動する機能（「歩く」力）を評価します。</div>
+      </div>
+      <div class="test-card">
+        <div class="test-num">3</div>
+        <div class="test-name">ロコモ25</div>
+        <div class="test-desc">25項目の質問票で身体の状態や生活状況を評価。本人の主観的評価により、移動機能の低下を把握します。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCOMO DEGREE -->
+<div class="degree-section">
+  <div class="degree-inner">
+    <div class="section-label">Classification</div>
+    <div class="section-title">ロコモ度の3段階</div>
+    <p style="font-size:0.9rem; line-height:1.8; color:var(--mid); margin-bottom:1.5rem;">2020年3月、日本整形外科学会は臨床判断値に新たに「ロコモ度3」を設定し公表しました。</p>
+    <div class="degree-grid">
+      <div class="degree-card d1">
+        <div class="degree-label">ロコモ度 1</div>
+        <div class="degree-title">移動機能の低下が始まっている状態</div>
+        <div class="degree-desc">運動習慣のない方や痩せすぎ・肥満の方は、ロコモの原因となる疾患にかかりやすくなります。筋力やバランス力を維持するための運動を心がけましょう。</div>
+      </div>
+      <div class="degree-card d2">
+        <div class="degree-label">ロコモ度 2</div>
+        <div class="degree-title">移動機能の低下が進行している状態</div>
+        <div class="degree-desc">自立した生活はできていますが、将来、日常生活に支障をきたす可能性があります。整形外科専門医の受診をお勧めします。</div>
+      </div>
+      <div class="degree-card d3">
+        <div class="degree-label">ロコモ度 3</div>
+        <div class="degree-title">社会参加に支障をきたしている状態</div>
+        <div class="degree-desc">身体的フレイルに相当する段階です。移動機能の低下により社会参加が困難になっています。何らかの運動器疾患の治療が必要な可能性があります。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FRAIL -->
+<div class="frail-section">
+  <div class="frail-inner">
+    <div class="section-label">Locomo &amp; Frailty</div>
+    <div class="section-title">ロコモとフレイルの関係</div>
+    <div class="frail-box">
+      <p class="frail-text">フレイルとは高齢者において「生理的予備能」（外からのストレスによる変化を回復させる能力）が低下し、要介護の前段階に至った状態を意味します。</p>
+      <p class="frail-text">フレイルが現れる要因には身体的・精神心理的・社会的の3つの側面があり、このうち身体的フレイルがロコモと深く関係しています。</p>
+      <p class="frail-text">ロコモはフレイルより人生の早い時期に現れます。ロコモが進行し、身体能力の低下が自覚症状を伴って顕著になったものが身体的フレイルです。移動機能の低下によって社会参加に支障をきたす「ロコモ度3」が、身体的フレイルに相当する段階といえます。</p>
+      <p class="frail-text" style="margin-bottom:0;">ロコモは子どもを含めた全年齢層を対象としていることが、フレイルとの大きな違いです。</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>まずはチェックしてみませんか？</h2>
+    <p>簡易セルフチェックなら道具不要・1分で完了。<br>ご自身のロコモリスクを確認できます。</p>
+    <a href="locomo-check.html" class="cta-btn">ロコモチェックへ →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
