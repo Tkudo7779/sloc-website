@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ロコモキャラバン | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* Intro */
+  .intro-section { padding:4rem 5rem; background:white; }
+  .intro-inner { max-width:960px; margin:0 auto; }
+  .intro-text { font-size:0.95rem; line-height:2; color:var(--mid); max-width:720px; margin-bottom:2rem; }
+  .intro-stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; }
+  .intro-stat { background:var(--green-pale); border-radius:4px; padding:1.5rem; text-align:center; }
+  .intro-stat .num { font-family:'DM Serif Display',serif; font-size:2.5rem; color:var(--green); }
+  .intro-stat .unit { font-size:0.9rem; color:var(--green); }
+  .intro-stat .label { font-size:0.78rem; color:var(--mid); margin-top:0.3rem; }
+
+  /* Map list */
+  .map-section { padding:4rem 5rem; background:var(--cream); }
+  .map-inner { max-width:960px; margin:0 auto; }
+  .caravan-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-top:1.5rem; }
+  .caravan-item { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:1.2rem; display:flex; align-items:center; gap:1rem; transition:all 0.2s; }
+  .caravan-item:hover { border-color:var(--green-mid); transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+  .caravan-num { font-family:'DM Serif Display',serif; font-size:1.2rem; color:var(--green-mid); min-width:32px; text-align:center; }
+  .caravan-info { flex:1; }
+  .caravan-city { font-size:0.88rem; font-weight:500; color:var(--charcoal); }
+  .caravan-year { font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--mid); }
+
+  /* Public lectures */
+  .lectures-section { padding:4rem 5rem; background:white; }
+  .lectures-inner { max-width:960px; margin:0 auto; }
+  .lecture-item { padding:1.5rem 0; border-bottom:1px solid rgba(26,107,74,0.08); }
+  .lecture-item:last-child { border-bottom:none; }
+  .lecture-date { font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--green); margin-bottom:0.3rem; }
+  .lecture-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.3rem; }
+  .lecture-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; }
+
+  /* Note */
+  .note-section { padding:2rem 5rem 4rem; background:var(--cream); }
+  .note-inner { max-width:960px; margin:0 auto; }
+  .note-box { background:var(--green-pale); border-left:3px solid var(--green); padding:1.2rem 1.5rem; border-radius:0 4px 4px 0; }
+  .note-box p { font-size:0.82rem; color:var(--mid); line-height:1.8; }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .intro-section, .map-section, .lectures-section, .note-section { padding:3rem 1.5rem; }
+    .intro-stats { grid-template-columns:1fr; }
+    .caravan-grid { grid-template-columns:1fr 1fr; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<div class="page-header">
+  <h1>ロコモキャラバン</h1>
+  <p>全国市民公開講座 ／ ロコモ予防の啓発活動</p>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <div class="intro-inner">
+    <div class="section-label">Locomo Caravan</div>
+    <div class="section-title">ロコモキャラバンとは</div>
+    <p class="intro-text">ロコモキャラバンは、SLOCが各県COA（臨床整形外科医会）と連携して開催する全国市民公開講座です。「ロコモと骨粗しょう症」「ロコモと認知症」「子どもロコモ」「ロコモと口腔ケア」「ロコモと生活習慣病」など、毎回テーマを変えながら全国18都市で開催し、いずれも高い評価を得ています。</p>
+    <div class="intro-stats">
+      <div class="intro-stat">
+        <div class="num">18<span class="unit">都市</span></div>
+        <div class="label">開催実績</div>
+      </div>
+      <div class="intro-stat">
+        <div class="num">13<span class="unit">年</span></div>
+        <div class="label">2013年の設立以来</div>
+      </div>
+      <div class="intro-stat">
+        <div class="num">5<span class="unit">テーマ</span></div>
+        <div class="label">ロコモ・骨粗しょう症・認知症・子どもロコモ・口腔ケア</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CARAVAN MAP -->
+<div class="map-section">
+  <div class="map-inner">
+    <div class="section-label">History</div>
+    <div class="section-title">全18回の開催実績</div>
+    <div class="caravan-grid">
+      <div class="caravan-item"><div class="caravan-num">1</div><div class="caravan-info"><div class="caravan-city">石巻市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">2</div><div class="caravan-info"><div class="caravan-city">千代田区</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">3</div><div class="caravan-info"><div class="caravan-city">大阪市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">4</div><div class="caravan-info"><div class="caravan-city">札幌市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">5</div><div class="caravan-info"><div class="caravan-city">福岡市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">6</div><div class="caravan-info"><div class="caravan-city">浜松市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">7</div><div class="caravan-info"><div class="caravan-city">八戸市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">8</div><div class="caravan-info"><div class="caravan-city">中野区</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">9</div><div class="caravan-info"><div class="caravan-city">佐賀市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">10</div><div class="caravan-info"><div class="caravan-city">熊本市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">11</div><div class="caravan-info"><div class="caravan-city">神戸市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">12</div><div class="caravan-info"><div class="caravan-city">浜松市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">13</div><div class="caravan-info"><div class="caravan-city">盛岡市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">14</div><div class="caravan-info"><div class="caravan-city">名古屋市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">15</div><div class="caravan-info"><div class="caravan-city">新潟市</div><div class="caravan-year">2020.10</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">16</div><div class="caravan-info"><div class="caravan-city">福井市</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">17</div><div class="caravan-info"><div class="caravan-city">山元町（宮城県）</div><div class="caravan-year">2023.11</div></div></div>
+      <div class="caravan-item"><div class="caravan-num">18</div><div class="caravan-info"><div class="caravan-city">金沢市</div><div class="caravan-year">2025.10</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT LECTURES -->
+<div class="lectures-section">
+  <div class="lectures-inner">
+    <div class="section-label">Recent Events</div>
+    <div class="section-title">最近の開催</div>
+
+    <div class="lecture-item">
+      <div class="lecture-date">2025.10</div>
+      <div class="lecture-title">第18回 ロコモキャラバン（金沢市）</div>
+      <div class="lecture-desc">石川県COA共催。金沢市文教会館にて「子どもロコモ」をテーマに市民公開講座を開催。金沢市米澤病院よりPT・OT総勢16名の協力のもと、林理事長によるステージ上での「姿勢教育の実際」を実演。</div>
+    </div>
+
+    <div class="lecture-item">
+      <div class="lecture-date">2023.11</div>
+      <div class="lecture-title">第17回 ロコモキャラバン（宮城県山元町）</div>
+      <div class="lecture-desc">震災後12年、復興を遂げた宮城県山元町にて開催。人口1万1千余の町で若年層の流入も多く、テーマを「子どもロコモ」として講演1時間とクイズで盛り上がった。</div>
+    </div>
+
+    <div class="lecture-item">
+      <div class="lecture-date">2023.10</div>
+      <div class="lecture-title">市民公開講座（福岡市）</div>
+      <div class="lecture-desc">福岡市南区民24万人を対象に「ロコモティブシンドロームと骨粗しょう症〜寝たきりにならないために〜」をテーマに開催。藤田芳憲先生による講演。</div>
+    </div>
+
+    <div class="lecture-item">
+      <div class="lecture-date">2020.10</div>
+      <div class="lecture-title">第15回 ロコモキャラバン（新潟市）</div>
+      <div class="lecture-desc">「ロコモと認知症の深い関係〜withコロナ時代のリスクと対策〜」をテーマに開催。新潟リハビリテーション病院 山本智章先生、新潟大学 春日健作先生が講演。新潟県臨床整形外科医会主催。</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE -->
+<div class="note-section">
+  <div class="note-inner">
+    <div class="note-box">
+      <p>ロコモキャラバンは各県COAとの共催で開催しています。開催のご要望やご相談は SLOC事務局（TEL 03-3839-5363）までお問い合わせください。</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

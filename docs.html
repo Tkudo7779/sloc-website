@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>定款・規則・報告書 | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:1.5rem; }
+
+  .docs-section { padding:4rem 5rem; }
+  .docs-section:nth-child(odd) { background:white; }
+  .docs-section:nth-child(even) { background:var(--cream); }
+  .docs-inner { max-width:960px; margin:0 auto; }
+  .docs-desc { font-size:0.88rem; color:var(--mid); line-height:1.8; margin-bottom:1.5rem; }
+
+  .doc-list { display:grid; grid-template-columns:1fr; gap:0.6rem; }
+  .doc-item { background:var(--cream); border:1px solid rgba(26,107,74,0.08); border-radius:4px; padding:1rem 1.5rem; display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:inherit; transition:all 0.2s; }
+  .docs-section:nth-child(even) .doc-item { background:white; }
+  .doc-item:hover { border-color:var(--green-mid); transform:translateX(4px); }
+  .doc-item-icon { font-size:1.2rem; margin-right:0.8rem; flex-shrink:0; }
+  .doc-item-name { font-size:0.88rem; color:var(--charcoal); flex:1; }
+  .doc-item-badge { font-size:0.65rem; background:var(--green-pale); color:var(--green); padding:0.15rem 0.5rem; border-radius:2px; margin-left:0.8rem; flex-shrink:0; }
+  .doc-item-arrow { color:var(--green-mid); font-size:0.9rem; margin-left:0.5rem; flex-shrink:0; }
+
+  .doc-group-title { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:700; color:var(--charcoal); margin-bottom:1rem; margin-top:2rem; padding-left:0.8rem; border-left:3px solid var(--green); }
+  .doc-group-title:first-of-type { margin-top:0; }
+
+  .note-box { background:var(--green-pale); border-left:3px solid var(--green); padding:1.2rem 1.5rem; border-radius:0 4px 4px 0; margin-top:2rem; }
+  .note-box p { font-size:0.82rem; color:var(--mid); line-height:1.8; }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .docs-section { padding:3rem 1.5rem; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<div class="page-header">
+  <h1>定款・規則・報告書</h1>
+  <p>NPO法人としての公開文書</p>
+</div>
+
+<!-- 定款・規則 -->
+<div class="docs-section">
+  <div class="docs-inner">
+    <div class="section-label">Bylaws &amp; Rules</div>
+    <div class="section-title">定款・規則集</div>
+    <p class="docs-desc">認定NPO法人として公開が義務づけられている定款および各種規則です。</p>
+
+    <div class="doc-list">
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">定款</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">定款運用規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">役員選任規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">役員候補者推薦委員会規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">各種委員会規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">寄付金取扱い規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">表彰規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">研修会等講師派遣規則</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=85" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📄</span>
+        <span class="doc-item-name">情報公開規程</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 設立文書 -->
+<div class="docs-section">
+  <div class="docs-inner">
+    <div class="section-label">Foundation Documents</div>
+    <div class="section-title">設立文書</div>
+    <div class="doc-list">
+      <a href="https://sloc.or.jp/?page_id=87" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📋</span>
+        <span class="doc-item-name">設立趣意書</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=87" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📋</span>
+        <span class="doc-item-name">設立認証書</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=87" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📋</span>
+        <span class="doc-item-name">寄付金募集趣意書</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=87" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📋</span>
+        <span class="doc-item-name">商標登録一覧表</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 事業報告 -->
+<div class="docs-section">
+  <div class="docs-inner">
+    <div class="section-label">Reports</div>
+    <div class="section-title">事業計画報告書・活動予算計算書等</div>
+    <p class="docs-desc">認定NPO法人として毎年度の事業計画・活動予算・決算資料を公開しています。</p>
+    <div class="doc-list">
+      <a href="https://sloc.or.jp/?page_id=89" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📊</span>
+        <span class="doc-item-name">令和7年度 事業計画書・活動予算書等</span>
+        <span class="doc-item-badge">最新</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=89" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📊</span>
+        <span class="doc-item-name">貸借対照表試算表（月次）</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/?page_id=89" class="doc-item" target="_blank" rel="noopener">
+        <span class="doc-item-icon">📊</span>
+        <span class="doc-item-name">月次監査報告</span>
+        <span class="doc-item-arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="note-box">
+      <p>※ 各文書は現行サイト（sloc.or.jp）に掲載されているPDFにリンクしています。<br>
+      ※ 認定NPO法人 / ご寄附についての詳細は <a href="https://sloc.or.jp/?page_id=74" target="_blank" rel="noopener" style="color:var(--green);">こちら</a> をご覧ください。</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
