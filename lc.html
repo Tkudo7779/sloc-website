@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ロコモコーディネーター（LC） | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* About LC */
+  .about-section { padding:4rem 5rem; background:white; }
+  .about-inner { max-width:960px; margin:0 auto; }
+  .about-lead { font-size:0.95rem; line-height:2; color:var(--mid); margin-bottom:2rem; max-width:720px; }
+  .about-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; }
+  .about-card { background:var(--green-pale); border-radius:4px; padding:1.5rem; text-align:center; }
+  .about-card-icon { font-size:2rem; margin-bottom:0.8rem; }
+  .about-card-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.5rem; }
+  .about-card-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; text-align:left; }
+
+  /* Stats */
+  .stats-section { padding:4rem 5rem; background:var(--charcoal); color:white; }
+  .stats-inner { max-width:960px; margin:0 auto; }
+  .stats-section .section-label { color:var(--green-mid); }
+  .stats-section .section-title { color:white; }
+  .stats-main { display:flex; align-items:center; justify-content:center; gap:3rem; margin-top:1.5rem; flex-wrap:wrap; }
+  .stats-total { text-align:center; }
+  .stats-total .num { font-family:'DM Serif Display',serif; font-size:4rem; color:var(--green-mid); line-height:1; }
+  .stats-total .unit { font-size:1.2rem; color:var(--green-mid); }
+  .stats-total .label { font-size:0.82rem; color:rgba(255,255,255,0.5); margin-top:0.5rem; }
+  .stats-breakdown { display:grid; grid-template-columns:repeat(2, 1fr); gap:0.5rem 2rem; }
+  .stats-row { display:flex; justify-content:space-between; gap:1rem; padding:0.4rem 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.82rem; }
+  .stats-row .name { color:rgba(255,255,255,0.7); }
+  .stats-row .count { color:var(--green-mid); font-family:'Space Mono',monospace; }
+
+  /* Qualification */
+  .qual-section { padding:4rem 5rem; background:var(--cream); }
+  .qual-inner { max-width:960px; margin:0 auto; }
+  .qual-box { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:2.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .qual-subtitle { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:700; color:var(--charcoal); margin-bottom:1rem; margin-top:1.5rem; }
+  .qual-subtitle:first-child { margin-top:0; }
+  .qual-text { font-size:0.88rem; color:var(--mid); line-height:1.9; margin-bottom:0.5rem; }
+  .qual-list { margin:0.5rem 0 1rem 1.2rem; }
+  .qual-list li { font-size:0.85rem; color:var(--mid); line-height:1.9; }
+
+  /* Training */
+  .training-section { padding:4rem 5rem; background:white; }
+  .training-inner { max-width:960px; margin:0 auto; }
+  .training-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; }
+  .training-info { background:var(--green-pale); border-radius:4px; padding:2rem; }
+  .training-info dt { font-size:0.72rem; color:var(--green); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.3rem; margin-top:1rem; }
+  .training-info dt:first-child { margin-top:0; }
+  .training-info dd { font-size:0.95rem; font-weight:500; color:var(--charcoal); }
+  .training-history { background:var(--cream); border-radius:4px; padding:2rem; }
+  .training-history-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:1rem; }
+  .training-history-list { font-size:0.78rem; color:var(--mid); line-height:2; }
+
+  /* Evidence */
+  .evidence-section { padding:4rem 5rem; background:var(--cream); }
+  .evidence-inner { max-width:960px; margin:0 auto; }
+  .evidence-box { background:white; border-left:3px solid var(--green); border-radius:0 4px 4px 0; padding:2rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .evidence-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; }
+  .evidence-text { font-size:0.85rem; color:var(--mid); line-height:1.9; margin-bottom:0.5rem; }
+  .evidence-cite { font-size:0.75rem; color:var(--green); margin-top:0.8rem; }
+
+  /* Contact */
+  .contact-section { padding:4rem 5rem; background:white; }
+  .contact-inner { max-width:960px; margin:0 auto; }
+  .contact-box { background:var(--green-pale); border-radius:4px; padding:2rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .contact-col dt { font-size:0.72rem; color:var(--green); letter-spacing:0.1em; margin-bottom:0.3rem; margin-top:1rem; }
+  .contact-col dt:first-child { margin-top:0; }
+  .contact-col dd { font-size:0.88rem; color:var(--charcoal); }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .about-section, .stats-section, .qual-section, .training-section, .evidence-section, .contact-section { padding:3rem 1.5rem; }
+    .about-grid { grid-template-columns:1fr; }
+    .stats-main { flex-direction:column; }
+    .stats-breakdown { grid-template-columns:1fr; }
+    .training-grid { grid-template-columns:1fr; }
+    .contact-box { grid-template-columns:1fr; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>ロコモコーディネーター（LC）</h1>
+  <p>ロコモ予防の現場を支える専門資格</p>
+</div>
+
+<!-- ABOUT -->
+<div class="about-section">
+  <div class="about-inner">
+    <div class="section-label">About LC</div>
+    <div class="section-title">ロコモコーディネーターとは</div>
+    <p class="about-lead">ロコモコーディネーター（LC）は、自治体と連携し、安全かつ医学的根拠に基づいたロコモーショントレーニング（ロコトレ）を指導・実践する、NPO法人SLOCが認定する専門資格です。</p>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">🏥</div>
+        <div class="about-card-title">現場でのロコトレ指導</div>
+        <div class="about-card-desc">地域サロンや介護施設で、高齢者に直接ロコトレを指導。医学的根拠に基づいた安全なトレーニングを実施します。</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🤝</div>
+        <div class="about-card-title">自治体との連携</div>
+        <div class="about-card-desc">ボランティア養成講座の実施、市民公開講座への講師派遣など、行政と現場をつなぐコーディネート役を担います。</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📋</div>
+        <div class="about-card-title">介護予防への貢献</div>
+        <div class="about-card-desc">ロコトレ指導による介護度進行抑止効果が学術論文で検証されています。エビデンスに基づく介護予防を推進します。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="section-label">LC in Numbers</div>
+    <div class="section-title">LC資格者データ</div>
+    <div class="stats-main">
+      <div class="stats-total">
+        <div class="num">2,793</div>
+        <div class="unit">名</div>
+        <div class="label">2026年2月現在</div>
+      </div>
+      <div class="stats-breakdown">
+        <div class="stats-row"><span class="name">理学療法士</span><span class="count">1,350</span></div>
+        <div class="stats-row"><span class="name">看護師</span><span class="count">510</span></div>
+        <div class="stats-row"><span class="name">作業療法士</span><span class="count">174</span></div>
+        <div class="stats-row"><span class="name">保健師</span><span class="count">163</span></div>
+        <div class="stats-row"><span class="name">セラピスト</span><span class="count">149</span></div>
+        <div class="stats-row"><span class="name">薬剤師</span><span class="count">146</span></div>
+        <div class="stats-row"><span class="name">准看護師</span><span class="count">139</span></div>
+        <div class="stats-row"><span class="name">介護福祉士</span><span class="count">183</span></div>
+        <div class="stats-row"><span class="name">主任ケアマネ</span><span class="count">88</span></div>
+        <div class="stats-row"><span class="name">管理栄養士</span><span class="count">47</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUALIFICATION -->
+<div class="qual-section">
+  <div class="qual-inner">
+    <div class="section-label">Qualification</div>
+    <div class="section-title">受講資格・研修内容</div>
+    <div class="qual-box">
+      <div class="qual-subtitle">受講資格</div>
+      <div class="qual-text">以下のいずれかに該当する方：</div>
+      <ul class="qual-list">
+        <li>医療機関・介護施設・地域包括支援センター等に所属する保健師、看護職員、PT、OT、または日本運動器科学会認定セラピスト</li>
+        <li>常勤専従として5年以上従事した経験を有する介護福祉士または主任ケアマネージャー（理事長認定）</li>
+        <li>薬剤師または管理栄養士（理事長認定）</li>
+      </ul>
+
+      <div class="qual-subtitle">研修内容</div>
+      <div class="qual-text">1単位50分、計6単位の研修講演を受講後、修了試験を実施。合格者にはSLOCより認定証を授与します。</div>
+
+      <div class="qual-subtitle">資格の有効期間</div>
+      <div class="qual-text">資格の継続は5年間です。資格継続のための単位取得講演会が定期的に開催されています。</div>
+
+      <div class="qual-subtitle">受講費用</div>
+      <div class="qual-text">5,000円（テキスト代・郵送代を含む）。申込時にクレジット決済。</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRAINING HISTORY -->
+<div class="training-section">
+  <div class="training-inner">
+    <div class="section-label">Training</div>
+    <div class="section-title">資格取得研修会</div>
+    <div class="training-grid">
+      <div class="training-info">
+        <dt>開催頻度</dt>
+        <dd>年2〜3回（全国主要都市 or オンライン）</dd>
+        <dt>累計開催回数</dt>
+        <dd>22回（2026年2月時点）</dd>
+        <dt>直近の開催</dt>
+        <dd>第22回（2026年2月1日・オンライン）</dd>
+        <dt>次回予定</dt>
+        <dd>決まり次第お知らせいたします</dd>
+      </div>
+      <div class="training-history">
+        <div class="training-history-title">過去の開催地一覧</div>
+        <div class="training-history-list">
+          第1回 浜松市 ／ 第2回 宮崎市 ／ 第3回 三島市 ／ 第4回 さいたま市 ／ 第5回 大阪市 ／ 第6回 東京 ／ 第7回 鹿児島市 ／ 第8回 福岡市 ／ 第9回 岡山市 ／ 第10回 広島市 ／ 第11回 仙台市 ／ 第12回 名古屋市 ／ 第13回 堺市 ／ 第14回 浜松市 ／ 第15回 新潟市 ／ 第16回 高松市 ／ 第17〜19回 オンライン ／ 第20回 名古屋市 ／ 第21〜22回 オンライン
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EVIDENCE -->
+<div class="evidence-section">
+  <div class="evidence-inner">
+    <div class="section-label">Evidence</div>
+    <div class="section-title">学術的エビデンス</div>
+    <div class="evidence-box">
+      <div class="evidence-title">ロコモコーディネーター指導下のロコトレによる介護度進行抑止効果</div>
+      <div class="evidence-text">SLOCは過去に検証した追跡研究結果をもとに、ロコモコーディネーター指導下のロコトレによる介護度の進行抑止効果を論文化しました。ロコトレ介入により要支援・要介護状態の改善が望めるという医学的根拠が示されています。</div>
+      <div class="evidence-cite">二階堂元重, 林承弘, 藤野圭司, 久保谷康夫, 宮田重樹「ロコモコーディネーターのロコトレ指導による介護度進行抑止効果」運動器リハビリテーション 第35巻3号:255-263, 2024</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="contact-inner">
+    <div class="section-label">Contact</div>
+    <div class="section-title">お問い合わせ</div>
+    <div class="contact-box">
+      <div class="contact-col">
+        <dt>SLOC事務局</dt>
+        <dd>認定NPO法人 全国ストップ・ザ・ロコモ協議会</dd>
+        <dt>所在地</dt>
+        <dd>〒110-0016 東京都台東区台東4-26-8 御徒町台東ビル6階</dd>
+        <dt>TEL</dt>
+        <dd>03-3839-5363</dd>
+      </div>
+      <div class="contact-col">
+        <dt>研修会事務局</dt>
+        <dd>一般社団法人 会議支援センター</dd>
+        <dt>担当</dt>
+        <dd>菅野 剛</dd>
+        <dt>所在地</dt>
+        <dd>〒104-0041 東京都中央区新富2-4-14 新富田所ビル4階</dd>
+        <dt>TEL / FAX</dt>
+        <dd>03-6222-9871 ／ 03-6222-9875</dd>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
