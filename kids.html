@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>子どもロコモ | NPO法人 Stop the Locomo（SLOC）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a; --green-light: #2d8a62; --green-pale: #e8f5ef;
+    --green-mid: #a8d5bc; --cream: #faf8f4; --charcoal: #1e2420;
+    --mid: #4a5e54; --accent: #d47c3a; --white: #ffffff;
+    --kids-blue: #2980b9; --kids-blue-pale: #eaf2f8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans JP',sans-serif; background:var(--cream); color:var(--charcoal); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(250,248,244,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,107,74,0.12); }
+  .nav-logo { display:flex; align-items:baseline; gap:0.6rem; text-decoration:none; }
+  .nav-logo .sloc { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green); }
+  .nav-logo .tagline { font-size:0.68rem; color:var(--mid); letter-spacing:0.12em; text-transform:uppercase; }
+  .nav-back { font-size:0.82rem; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--green); }
+
+  .page-header { background:var(--green); padding:8rem 5rem 4rem; text-align:center; position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+  .page-header h1 { font-family:'Noto Serif JP',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:0.8rem; position:relative; z-index:2; }
+  .page-header p { font-size:0.88rem; color:rgba(255,255,255,0.7); position:relative; z-index:2; }
+
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:2rem; }
+
+  /* What is */
+  .what-section { padding:4rem 5rem; background:white; }
+  .what-inner { max-width:960px; margin:0 auto; }
+  .what-lead { font-size:0.95rem; line-height:2; color:var(--mid); margin-bottom:2rem; max-width:720px; }
+  .what-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:1.5rem; }
+  .what-card { background:var(--kids-blue-pale); border-radius:4px; padding:1.5rem; display:flex; gap:1rem; align-items:flex-start; }
+  .what-icon { font-size:1.5rem; flex-shrink:0; margin-top:0.2rem; }
+  .what-text { font-size:0.88rem; line-height:1.8; color:var(--charcoal); }
+  .what-text strong { color:var(--kids-blue); }
+
+  /* Stats */
+  .stats-section { padding:4rem 5rem; background:var(--cream); }
+  .stats-inner { max-width:960px; margin:0 auto; }
+  .stats-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .stat-box { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:1.5rem; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .stat-box .num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--kids-blue); }
+  .stat-box .unit { font-size:0.9rem; color:var(--kids-blue); }
+  .stat-box .label { font-size:0.78rem; color:var(--mid); margin-top:0.3rem; line-height:1.5; }
+
+  /* Causes */
+  .causes-section { padding:4rem 5rem; background:white; }
+  .causes-inner { max-width:960px; margin:0 auto; }
+  .causes-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .cause-card { background:var(--cream); border-radius:4px; padding:1.5rem; border-left:3px solid var(--accent); }
+  .cause-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.5rem; }
+  .cause-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; }
+
+  /* Check */
+  .check-section { padding:4rem 5rem; background:var(--kids-blue); color:white; }
+  .check-inner { max-width:960px; margin:0 auto; }
+  .check-section .section-label { color:rgba(255,255,255,0.6); }
+  .check-section .section-title { color:white; }
+  .check-list { display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin-top:1.5rem; }
+  .check-item { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:4px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1rem; }
+  .check-num { font-family:'DM Serif Display',serif; font-size:1.5rem; color:rgba(255,255,255,0.4); flex-shrink:0; }
+  .check-text { font-size:0.88rem; color:rgba(255,255,255,0.9); line-height:1.6; }
+  .check-note { margin-top:1.5rem; font-size:0.82rem; color:rgba(255,255,255,0.6); line-height:1.8; text-align:center; }
+
+  /* Prevention */
+  .prevention-section { padding:4rem 5rem; background:var(--cream); }
+  .prevention-inner { max-width:960px; margin:0 auto; }
+  .prevention-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-top:1.5rem; }
+  .prevention-card { background:white; border:1px solid rgba(26,107,74,0.1); border-radius:4px; padding:2rem; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .prevention-icon { font-size:2rem; margin-bottom:0.8rem; }
+  .prevention-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.8rem; }
+  .prevention-desc { font-size:0.82rem; color:var(--mid); line-height:1.8; text-align:left; }
+  .prevention-keyword { display:inline-block; background:var(--kids-blue-pale); color:var(--kids-blue); font-size:0.72rem; padding:0.2rem 0.6rem; border-radius:2px; margin-top:0.8rem; }
+
+  /* School */
+  .school-section { padding:4rem 5rem; background:white; }
+  .school-inner { max-width:960px; margin:0 auto; }
+  .school-box { background:var(--green-pale); border-radius:4px; padding:2.5rem; margin-top:1.5rem; }
+  .school-text { font-size:0.9rem; line-height:2; color:var(--mid); margin-bottom:1rem; }
+  .school-text:last-child { margin-bottom:0; }
+
+  /* Resources */
+  .resources-section { padding:4rem 5rem; background:var(--cream); }
+  .resources-inner { max-width:960px; margin:0 auto; }
+  .resource-list { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1.5rem; }
+  .resource-item { background:white; border:1px solid rgba(26,107,74,0.08); border-radius:4px; padding:1.2rem 1.5rem; display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:inherit; transition:all 0.2s; }
+  .resource-item:hover { transform:translateX(4px); border-color:var(--kids-blue); }
+  .resource-item-title { font-size:0.88rem; color:var(--charcoal); }
+  .resource-item-meta { font-size:0.72rem; color:var(--mid); margin-top:0.2rem; }
+  .resource-item-arrow { color:var(--green-mid); font-size:1rem; }
+
+  /* CTA */
+  .cta-section { padding:4rem 5rem; background:var(--green); text-align:center; }
+  .cta-inner { max-width:600px; margin:0 auto; }
+  .cta-section h2 { font-family:'Noto Serif JP',serif; font-size:1.3rem; color:white; margin-bottom:1rem; }
+  .cta-section p { font-size:0.85rem; color:rgba(255,255,255,0.7); margin-bottom:2rem; }
+  .cta-btn { display:inline-block; background:white; color:var(--green); padding:0.85rem 2.5rem; border-radius:2px; font-family:'Noto Sans JP',sans-serif; font-size:0.88rem; font-weight:500; text-decoration:none; transition:all 0.2s; }
+  .cta-btn:hover { background:var(--green-pale); transform:translateY(-2px); }
+
+  footer { background:var(--charcoal); color:rgba(255,255,255,0.5); padding:2rem 5rem; text-align:center; font-size:0.75rem; }
+  footer .sloc { font-family:'DM Serif Display',serif; font-size:1.2rem; color:white; display:block; margin-bottom:0.3rem; }
+
+  @media (max-width:768px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:7rem 1.5rem 3rem; }
+    .what-section, .stats-section, .causes-section, .check-section, .prevention-section, .school-section, .resources-section, .cta-section { padding:3rem 1.5rem; }
+    .what-grid, .causes-grid, .check-list { grid-template-columns:1fr; }
+    .stats-grid, .prevention-grid { grid-template-columns:1fr; }
+    footer { padding:2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="sloc">SLOC</span>
+    <span class="tagline">Stop the Locomo</span>
+  </a>
+  <a href="index.html" class="nav-back">← トップへ</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>子どもロコモ</h1>
+  <p>子どもの運動器の健康を守る</p>
+</div>
+
+<!-- WHAT IS -->
+<div class="what-section">
+  <div class="what-inner">
+    <div class="section-label">What is Kids Locomo?</div>
+    <div class="section-title">子どもロコモとは</div>
+    <p class="what-lead">近年、子どもたちの運動のやり過ぎによるスポーツ障害と、運動不足の2極化が問題になっています。明確な基礎疾患のない子どもの運動器機能異常を「子どもロコモ」と呼んでいます。</p>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-icon">🧒</div>
+        <div class="what-text">片脚でしっかり立てない、手を真っすぐ挙げられない、しゃがめない、体前屈ができないなど、<strong>基本動作ができない子どもが急増</strong>しています。</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">⚠️</div>
+        <div class="what-text">物を投げる動作ができない、倒立する子を支えられない、雑巾がけで手が出ず<strong>前歯を折る</strong>など、少し前の時代には考えられなかったことが起こっています。</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">📱</div>
+        <div class="what-text">スマホやゲームの長時間使用による<strong>姿勢不良</strong>、外遊びの減少による危険回避能力の低下が、子どもの運動器に深刻な影響を与えています。</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🍽️</div>
+        <div class="what-text">核家族化・共働き化により3食をしっかり食べる習慣が薄まっています。<strong>低栄養・痩せすぎ</strong>も骨粗しょう症やロコモの予備群を増やす原因です。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="section-label">Numbers</div>
+    <div class="section-title">数字で見る子どもロコモ</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="num">40<span class="unit">%超</span></div>
+        <div class="label">何らかの運動器機能不全を有する児童生徒の割合（埼玉県調査）</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">3<span class="unit">倍</span></div>
+        <div class="label">この40年で学校内の骨折が増加（特に中学生で顕著）</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">2016<span class="unit">年〜</span></div>
+        <div class="label">学校保健における運動器検診が全国で義務化</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAUSES -->
+<div class="causes-section">
+  <div class="causes-inner">
+    <div class="section-label">Causes</div>
+    <div class="section-title">なぜ子どもロコモが増えているのか</div>
+    <div class="causes-grid">
+      <div class="cause-card">
+        <div class="cause-title">運動の2極化</div>
+        <div class="cause-desc">運動をやりすぎる子と全くしない子の2極化。どちらの極でも「しゃがみ込み」と「体前屈」ができていないことが調査で判明しています。</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-title">デジタル機器の影響</div>
+        <div class="cause-desc">ゲームやスマホの長時間使用が姿勢不良を引き起こし、猫背や浮き指の原因に。空間認知機能の発達にも影響を与えています。</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-title">外遊びの減少</div>
+        <div class="cause-desc">車社会で外遊びをしない→小さなケガもしない→手がうまく出せない→かえって大きなケガをする、という悪循環が起きています。</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-title">生活の便利化</div>
+        <div class="cause-desc">レバー式ドアノブ、自動水栓、マジックテープの靴など、指先や手首を使う機会が減り、巧緻性（手先の器用さ）が低下しています。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECK -->
+<div class="check-section">
+  <div class="check-inner">
+    <div class="section-label">Check Points</div>
+    <div class="section-title">子どもロコモ チェックポイント</div>
+    <div class="check-list">
+      <div class="check-item">
+        <div class="check-num">1</div>
+        <div class="check-text">片脚立ちが左右5秒間ずつできない（バランス）</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">2</div>
+        <div class="check-text">両腕を真っすぐ上に挙げられない（肩の可動域）</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">3</div>
+        <div class="check-text">しゃがみ込みができない（足首の柔軟性）</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">4</div>
+        <div class="check-text">体前屈で指先が床に届かない（体幹の柔軟性）</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">5</div>
+        <div class="check-text">グー・パーの足指じゃんけんができない（足指の機能）</div>
+      </div>
+    </div>
+    <p class="check-note">1つでも当てはまる場合、運動器機能不全の可能性があります。<br>お近くの整形外科にご相談ください。</p>
+  </div>
+</div>
+
+<!-- PREVENTION -->
+<div class="prevention-section">
+  <div class="prevention-inner">
+    <div class="section-label">Prevention</div>
+    <div class="section-title">子どもロコモの予防</div>
+    <div class="prevention-grid">
+      <div class="prevention-card">
+        <div class="prevention-icon">🤸</div>
+        <div class="prevention-title">ストレッチ</div>
+        <div class="prevention-desc">成長期の子どもには、運動前後に全身を使った入念なスタティックストレッチが必要です。特に小学校高学年・中学生の柔軟性低下に有効です。</div>
+        <div class="prevention-keyword">肩甲骨・股関節・足指</div>
+      </div>
+      <div class="prevention-card">
+        <div class="prevention-icon">🦶</div>
+        <div class="prevention-title">足指トレーニング</div>
+        <div class="prevention-desc">タオルギャザーや足指じゃんけんで足の内在筋を強化。浮き指を改善し、正しい姿勢の基盤をつくります。扁平足の改善にも効果があります。</div>
+        <div class="prevention-keyword">タオルギャザー</div>
+      </div>
+      <div class="prevention-card">
+        <div class="prevention-icon">🥗</div>
+        <div class="prevention-title">食事・姿勢教育</div>
+        <div class="prevention-desc">バランスの良い朝食をきちんと摂れている子どもは3〜4割に限られています。食事指導と正しい姿勢の教育がロコモ予防の基盤となります。</div>
+        <div class="prevention-keyword">姿勢教育</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHOOL SCREENING -->
+<div class="school-section">
+  <div class="school-inner">
+    <div class="section-label">School Screening</div>
+    <div class="section-title">学校保健における運動器検診</div>
+    <div class="school-box">
+      <p class="school-text">平成28年（2016年）4月から、全国の学校で運動器検診が義務化されました。SLOCは、スクリーニング体系の検討・推進に貢献しています。</p>
+      <p class="school-text">埼玉県では6年間のモデル事業として、就学時・小学5年・中学生を対象に運動器検診を実施。片脚立ち・肩挙上・しゃがみ込み・体前屈の4項目をチェックし、約4割の子どもが何らかの運動器機能不全を有していることを明らかにしました。</p>
+      <p class="school-text">子どもへのしっかりした運動指導・食事指導などのロコモ対策は、将来のメタボ予防にもつながると期待されています。公教育の重要な柱の一つである学校健診が果たす役割は非常に大きいと考えられます。</p>
+    </div>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<div class="resources-section">
+  <div class="resources-inner">
+    <div class="section-label">Resources</div>
+    <div class="section-title">関連資料</div>
+    <div class="resource-list">
+      <a href="https://sloc.or.jp/wp01/wp-content/uploads/2019/03/子どもロコモ読本_A510.pdf" class="resource-item" target="_blank" rel="noopener">
+        <div>
+          <div class="resource-item-title">子どもロコモ読本（JCOA・林承弘先生 監修）</div>
+          <div class="resource-item-meta">PDF ／ 保護者・教育関係者向け</div>
+        </div>
+        <span class="resource-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/wp01/wp-content/uploads/2021/03/リーフレット（表）.jpg.pdf" class="resource-item" target="_blank" rel="noopener">
+        <div>
+          <div class="resource-item-title">日医 学校運動器検診リーフレット（令和3年度版）</div>
+          <div class="resource-item-meta">PDF ／ A4裏表1枚 ／ ダウンロード自由</div>
+        </div>
+        <span class="resource-item-arrow">↗</span>
+      </a>
+      <a href="https://sloc.or.jp/wp01/wp-content/uploads/2024/10/特集３（林先生）最終版.pdf" class="resource-item" target="_blank" rel="noopener">
+        <div>
+          <div class="resource-item-title">姿勢と子どもロコモ — ロコモ・フレイル予防に向けて（林承弘）</div>
+          <div class="resource-item-meta">小児歯科臨床 2024年10月号掲載</div>
+        </div>
+        <span class="resource-item-arrow">↗</span>
+      </a>
+      <a href="https://kidsna.com/magazine/entertainment-report-20051201-11049" class="resource-item" target="_blank" rel="noopener">
+        <div>
+          <div class="resource-item-title">体の使い方を学べない子どもたち（KIDSNA取材記事）</div>
+          <div class="resource-item-meta">子育て情報メディア KIDSNA ／ 林承弘先生インタビュー</div>
+        </div>
+        <span class="resource-item-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>お子さまのロコモチェック</h2>
+    <p>しゃがみ・片脚立ちなど子どもの運動器を簡単確認。</p>
+    <a href="locomo-check.html" class="cta-btn">子どもロコモチェックへ →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="sloc">SLOC</span>
+  <p>© 2026 NPO法人 Stop the Locomo. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
