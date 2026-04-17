@@ -52,40 +52,6 @@
       }
     },
     {
-      "@type": "Person",
-      "@id": "https://japan-med.org/#director",
-      "name": "工藤太郎",
-      "honorificPrefix": "Dr.",
-      "jobTitle": "理事・JCOA埼玉支部長",
-      "affiliation": [
-        {
-          "@type": "MedicalOrganization",
-          "name": "工藤クリニック",
-          "medicalSpecialty": "Orthopedic"
-        },
-        {
-          "@type": "Organization",
-          "name": "NPO法人 Stop the Locomo"
-        }
-      ],
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "degree",
-          "name": "医学博士",
-          "recognizedBy": { "@type": "Organization", "name": "日本大学医学部" }
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          "name": "整形外科専門医"
-        }
-      ],
-      "alumniOf": [
-        { "@type": "CollegeOrUniversity", "name": "日本大学医学部" },
-        { "@type": "CollegeOrUniversity", "name": "Harvard Medical School MGH" }
-      ]
-    },
-    {
       "@type": "WebSite",
       "@id": "https://japan-med.org/#website",
       "url": "https://japan-med.org/",
@@ -236,14 +202,6 @@
   .faq-a { font-size:0.88rem; line-height:1.9; color:var(--mid); max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; }
   .faq-item.open .faq-a { max-height:300px; padding-bottom:1.5rem; }
 
-  /* ══ 監修者（SAIO権威性）══ */
-  .supervisor-section { padding:4rem 5rem; background:var(--green-pale); border-top:2px solid var(--green-mid); }
-  .supervisor-inner { display:flex; align-items:center; gap:2rem; max-width:700px; }
-  .supervisor-badge { width:56px; height:56px; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
-  .supervisor-label { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin-bottom:0.3rem; }
-  .supervisor-name { font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:700; color:var(--charcoal); margin-bottom:0.2rem; }
-  .supervisor-detail { font-size:0.78rem; color:var(--mid); line-height:1.6; }
-
   .news-section { padding:6rem 5rem; background:var(--cream); }
   .news-grid { display:grid; grid-template-columns:2fr 1fr; gap:3rem; }
   .news-list { display:flex; flex-direction:column; }
@@ -277,7 +235,6 @@
     .achievements-grid { grid-template-columns:repeat(2,1fr); }
     .news-grid { grid-template-columns:1fr; }
     .entry-section,.achievements-section,.activities-section,.faq-section,.news-section { padding:4rem 1.5rem; }
-    .supervisor-section { padding:3rem 1.5rem; }
     footer { grid-template-columns:1fr; padding:2rem 1.5rem; }
     .footer-bottom { padding:1rem 1.5rem; flex-direction:column; gap:0.5rem; }
   }
@@ -456,24 +413,6 @@
     <div class="faq-item">
       <div class="faq-q">ロコトレとはどのような運動ですか？<span class="faq-chevron">▼</span></div>
       <div class="faq-a">ロコトレはロコモーショントレーニングの略で、片脚立ちとスクワットの2種類が基本です。片脚立ちは1日3回・左右1分ずつ、スクワットは1日3回・5〜6回を目安に行います。毎日継続することでロコモ予防に効果的です。</div>
-    </div>
-  </div>
-</section>
-
-<!-- 監修者（SAIO権威性） -->
-<section id="supervisor" class="supervisor-section fade-up">
-  <div class="supervisor-inner">
-    <div class="supervisor-badge">👨‍⚕️</div>
-    <div>
-      <div class="supervisor-label">医療監修</div>
-      <div class="supervisor-name">工藤 太郎（くどう たろう）</div>
-      <div class="supervisor-detail">
-        整形外科専門医・医学博士 ／ 工藤クリニック院長<br>
-        JCOA埼玉支部長 ／ NPO法人Stop the Locomo理事<br>
-        日本大学医学部卒・同大学院博士課程修了（外科系整形外科学）<br>
-        Harvard Medical School MGHフェロー（2000-2001）<br>
-        専門：関節リウマチ・人工膝関節・運動器疾患
-      </div>
     </div>
   </div>
 </section>
