@@ -423,8 +423,9 @@
     <div><div class="section-label">Locomo Journal</div><div class="section-title">ロコモジャーナル</div></div>
   </div>
   <div class="news-grid fade-up">
-    <div class="news-list">
+    <div class="news-list" id="news-list">
 
+      <!-- 動的記事がここに挿入される (news.json から取得)。fetch失敗時は以下のフォールバック静的記事を表示 -->
       <div class="news-item">
         <div class="news-date">2026.04.09</div>
         <div>
@@ -520,6 +521,42 @@
       if (!isOpen) item.classList.add('open');
     });
   });
+
+  // ═══ news.json 動的読み込み (sloc-worker が更新) ═══
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+
+  (async function loadNews() {
+    try {
+      const response = await fetch('/news.json', { cache: 'no-cache' });
+      if (!response.ok) return; // フォールバック (静的HTML) のまま
+      const news = await response.json();
+      if (!Array.isArray(news) || news.length === 0) return; // 空ならフォールバック
+
+      const list = document.getElementById('news-list');
+      if (!list) return;
+
+      // 動的記事を生成 (最大10件)
+      const html = news.slice(0, 10).map(item => {
+        const date = (item.date || '').replace(/-/g, '.');
+        const category = item.category || 'お知らせ';
+        const title = item.title || '';
+        return `<div class="news-item">
+        <div class="news-date">${escapeHtml(date)}</div>
+        <div>
+          <span class="news-cat">${escapeHtml(category)}</span>
+          <div class="news-title-text">${escapeHtml(title)}</div>
+        </div>
+      </div>`;
+      }).join('\n');
+
+      list.innerHTML = html;
+    } catch (err) {
+      console.warn('news.json load failed, using fallback:', err);
+      // エラー時はフォールバック (静的HTML) のまま
+    }
+  })();
 </script>
 </body>
 </html>
