@@ -209,7 +209,12 @@
   .news-item:hover { padding-left:0.5rem; }
   .news-date { font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--mid); padding-top:2px; }
   .news-cat { display:inline-block; background:var(--green-pale); color:var(--green); font-size:0.65rem; padding:0.15rem 0.5rem; border-radius:2px; margin-bottom:0.3rem; }
-  .news-title-text { font-size:0.88rem; line-height:1.6; color:var(--charcoal); }
+  .news-title-row { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+  .news-title-text { font-size:0.88rem; line-height:1.6; color:var(--charcoal); flex:1; }
+  .news-chevron { font-size:0.8rem; color:var(--green); transition:transform 0.3s; flex-shrink:0; padding-top:2px; }
+  .news-item.open .news-chevron { transform:rotate(180deg); }
+  .news-body { font-size:0.85rem; line-height:1.9; color:var(--mid); max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s, margin-top 0.3s; white-space:pre-wrap; }
+  .news-item.open .news-body { max-height:500px; padding:1rem 1rem 0.5rem; margin-top:0.8rem; background:var(--green-pale); border-radius:4px; }
   .sidebar-card { background:var(--green); color:white; padding:2rem; border-radius:4px; }
   .sidebar-title { font-family:'Noto Serif JP',serif; font-size:1rem; margin-bottom:1rem; font-weight:700; }
   .sidebar-item { display:flex; justify-content:space-between; align-items:center; padding:0.7rem 0; border-bottom:1px solid rgba(255,255,255,0.15); font-size:0.82rem; color:rgba(255,255,255,0.85); }
@@ -430,7 +435,11 @@
         <div class="news-date">2026.04.09</div>
         <div>
           <span class="news-cat">お知らせ</span>
-          <div class="news-title-text">新ホームページ（japan-med.org）を公開しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">新ホームページ（japan-med.org）を公開しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">認定NPO法人 全国ストップ・ザ・ロコモ協議会(SLOC)の新ホームページを、新ドメイン japan-med.org として公開いたしました。情報発信基盤を刷新し、ロコモティブシンドロームの予防・啓発に関する最新情報を、より迅速にお届けしてまいります。引き続き、SLOCの活動にご理解とご支援を賜りますようお願い申し上げます。</div>
         </div>
       </div>
 
@@ -438,7 +447,11 @@
         <div class="news-date">2026.03.29</div>
         <div>
           <span class="news-cat">イベント</span>
-          <div class="news-title-text">第3回ロコモコーディネーター全国大会を開催しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">第3回ロコモコーディネーター全国大会を開催しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">2026年3月29日、品川プリンスホテルにて第3回ロコモコーディネーター(LC)全国大会を開催いたしました。全国からLC資格者にご参加いただき、ストップ・ザ・ロコモ！アワード受賞作品の発表、各地の活動事例共有、最新エビデンスに関する講演など、充実したプログラムとなりました。</div>
         </div>
       </div>
 
@@ -446,7 +459,11 @@
         <div class="news-date">2026.03.12</div>
         <div>
           <span class="news-cat">お知らせ</span>
-          <div class="news-title-text">第3回ロコモコーディネーター全国大会の開催情報を掲載しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">第3回ロコモコーディネーター全国大会の開催情報を掲載しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">第3回ロコモコーディネーター(LC)全国大会を、2026年3月29日に品川プリンスホテルにて開催いたします。プログラム詳細・参加申込方法などの情報を掲載しました。LC資格者の皆様のご参加をお待ちしております。</div>
         </div>
       </div>
 
@@ -454,7 +471,11 @@
         <div class="news-date">2026.03.09</div>
         <div>
           <span class="news-cat">お知らせ</span>
-          <div class="news-title-text">第3回ロコモコーディネーター全国大会／ストップ・ザ・ロコモ！アワードの受賞作品が決定しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">第3回ロコモコーディネーター全国大会／ストップ・ザ・ロコモ！アワードの受賞作品が決定しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">ストップ・ザ・ロコモ！アワードの受賞作品が決定いたしました。全国のLC資格者から多数のご応募をいただき、優れたロコモ予防・啓発活動の取り組みが選出されました。受賞作品の発表は3月29日の第3回LC全国大会にて行います。</div>
         </div>
       </div>
 
@@ -462,7 +483,11 @@
         <div class="news-date">2026.03.01</div>
         <div>
           <span class="news-cat">お知らせ</span>
-          <div class="news-title-text">LC資格者内訳（2026年2月現在）を掲載しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">LC資格者内訳（2026年2月現在）を掲載しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">ロコモコーディネーター(LC)資格者の内訳を、2026年2月時点の最新情報として更新いたしました。全国のLC資格者数は2,793名となり、医療・介護・健康分野の専門家による地域でのロコモ予防活動が着実に広がっています。</div>
         </div>
       </div>
 
@@ -470,7 +495,11 @@
         <div class="news-date">2026.02.10</div>
         <div>
           <span class="news-cat">研修</span>
-          <div class="news-title-text">第21回LC資格取得研修会 修了試験結果を掲載しました。</div>
+          <div class="news-title-row">
+            <div class="news-title-text">第21回LC資格取得研修会 修了試験結果を掲載しました。</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">第21回ロコモコーディネーター(LC)資格取得研修会の修了試験結果を公開いたしました。研修を修了された皆様、おめでとうございます。新たなLC資格者として、地域でのロコモ予防・啓発活動にご活躍いただくことを期待しております。</div>
         </div>
       </div>
 
@@ -527,33 +556,51 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
 
+  // ニュース項目のアコーディオン開閉
+  function attachNewsAccordion() {
+    document.querySelectorAll('#news-list .news-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('#news-list .news-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  }
+
   (async function loadNews() {
     try {
       const response = await fetch('/news.json', { cache: 'no-cache' });
-      if (!response.ok) return; // フォールバック (静的HTML) のまま
+      if (!response.ok) { attachNewsAccordion(); return; } // フォールバック (静的HTML) のまま
       const news = await response.json();
-      if (!Array.isArray(news) || news.length === 0) return; // 空ならフォールバック
+      if (!Array.isArray(news) || news.length === 0) { attachNewsAccordion(); return; } // 空ならフォールバック
 
       const list = document.getElementById('news-list');
       if (!list) return;
 
-      // 動的記事を生成 (最大10件)
+      // 動的記事を生成 (最大10件、本文付きアコーディオン)
       const html = news.slice(0, 10).map(item => {
         const date = (item.date || '').replace(/-/g, '.');
         const category = item.category || 'お知らせ';
         const title = item.title || '';
+        const body = item.body || '';
         return `<div class="news-item">
         <div class="news-date">${escapeHtml(date)}</div>
         <div>
           <span class="news-cat">${escapeHtml(category)}</span>
-          <div class="news-title-text">${escapeHtml(title)}</div>
+          <div class="news-title-row">
+            <div class="news-title-text">${escapeHtml(title)}</div>
+            <span class="news-chevron">▼</span>
+          </div>
+          <div class="news-body">${escapeHtml(body)}</div>
         </div>
       </div>`;
       }).join('\n');
 
       list.innerHTML = html;
+      attachNewsAccordion();
     } catch (err) {
       console.warn('news.json load failed, using fallback:', err);
+      attachNewsAccordion();
       // エラー時はフォールバック (静的HTML) のまま
     }
   })();
