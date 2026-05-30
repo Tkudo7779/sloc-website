@@ -228,7 +228,9 @@
   .footer-links ul { list-style:none; }
   .footer-links li { font-size:0.78rem; margin-bottom:0.5rem; cursor:pointer; transition:color 0.2s; }
   .footer-links li:hover { color:var(--green-mid); }
-  .footer-bottom { background:var(--charcoal); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5rem; display:flex; justify-content:space-between; font-size:0.72rem; color:rgba(255,255,255,0.3); }
+  .footer-bottom { background:var(--charcoal); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.72rem; color:rgba(255,255,255,0.3); }
+  .footer-disclaimer { font-size:0.68rem; color:rgba(255,255,255,0.4); }
+  .footer-disclaimer a { color:rgba(255,255,255,0.55); text-decoration:underline; }
 
   .fade-up { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
   .fade-up.visible { opacity:1; transform:translateY(0); }
@@ -532,6 +534,7 @@
 </footer>
 <div class="footer-bottom">
   <span>© 2026 NPO法人 Stop the Locomo. All rights reserved.</span>
+  <span class="footer-disclaimer">本サイトはNPO法人 全国ストップ・ザ・ロコモ協議会の試験運用版です。正式サイトは <a href="https://sloc.or.jp">https://sloc.or.jp</a></span>
 </div>
 
 <script>
